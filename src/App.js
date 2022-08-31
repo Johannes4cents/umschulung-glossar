@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
+import { ToastContainer } from "react-toastify";
 import MainTermsSection from "./bereich_begriffs_liste/MainTermsSection";
 import MainExplanationSection from "./bereich_erklaerung/MainExplanationSection";
 import useModal from "./hooks/useModal";
 import { getCollectionListener, getDocListener } from "./misc/handleFirestore";
 import { catList } from "./misc/lists";
+import SignUpWithEMailModal from "./modals/SignUpWithEmailModal";
 import TermEditModal from "./modals/TermEditModal";
+import miscStore from "./stores/miscStore";
 
 function App() {
   const [selectedTerm, setSelectedTerm] = useState(null);
@@ -12,9 +15,19 @@ function App() {
   const [selectedCats, setSelectedCats] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [displayedTerms, setDisplayedterms] = useState([]);
+  const { setInfo, loggedIn, info } = miscStore();
+
+  function checkUserStartup() {
+    let localInfo = JSON.parse(localStorage.getItem("info"));
+    if (localInfo != null) {
+      console.log("localInfo - ", localInfo);
+      setInfo(localInfo);
+    }
+  }
 
   useEffect(() => {
     setSelectedCats(catList.map((c) => c.id));
+    checkUserStartup();
   }, []);
 
   useEffect(() => {
@@ -29,17 +42,19 @@ function App() {
     };
   }, []);
 
+  const loginModal = useModal({
+    password: "signupModal",
+    modalContent: <SignUpWithEMailModal />,
+    offsetY: 10,
+    translate: { x: 100, y: 0 },
+    position: "bottomLeft",
+  });
+
   const modal = useModal({
     password: "newTerm",
     position: "bottomLeft",
     modalContent: (
-      <TermEditModal
-        terms={terms}
-        setTerms={setTerms}
-        searchInput={searchInput}
-        setSearchInput={setSearchInput}
-        selectedCats={selectedCats}
-      />
+      <TermEditModal setSelectedTerm={setSelectedTerm} terms={terms} />
     ),
     center: true,
     darkOverlay: true,
@@ -50,9 +65,37 @@ function App() {
         className="divColumn"
         style={{ width: "100%", justifyContent: "center", marginTop: "10px" }}
       >
-        <div className="textBoldWhite" style={{ fontSize: "20px" }}>
-          Begleitendes Glossar zur Umschulung zum Fachinformatiker im Bereich
-          Anwendungsentwicklung
+        <div
+          className="divRow"
+          style={{ width: "100%", justifyContent: "center" }}
+        >
+          <div style={{ flex: 1 }}></div>
+          <div className="textBoldWhite" style={{ fontSize: "20px" }}>
+            Begleitendes Glossar zur Umschulung zum Fachinformatiker im Bereich
+            Anwendungsentwicklung
+          </div>
+          <div
+            onClick={() => {
+              console.log("info - ", info);
+            }}
+            className="divRow"
+            style={{ flex: 1, justifyContent: "end", marginRight: "5px" }}
+          >
+            {!loggedIn && (
+              <img
+                style={{ alignSelf: "end" }}
+                className="icon40"
+                src="/images/icons/btn_password_sign_in.png"
+                onClick={() => loginModal.open("signupModal")}
+              />
+            )}
+            {loggedIn && (
+              <div className="divColumn">
+                <div className="textWhite">Logged in as</div>
+                <div className="textBoldWhite">{info.username}</div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
       <div
@@ -61,9 +104,11 @@ function App() {
           width: "100%",
           justifyContent: "space-around",
           marginTop: "3%",
+          alignItems: "baseline",
         }}
       >
         <MainTermsSection
+          terms={terms}
           displayedTerms={displayedTerms}
           setDisplayedterms={setDisplayedterms}
           selectedTerm={selectedTerm}
@@ -75,11 +120,15 @@ function App() {
           modal={modal}
         />
         <MainExplanationSection
+          terms={terms}
+          editModal={modal}
           selectedTerm={selectedTerm}
           setSelectedTerm={setSelectedTerm}
         />
       </div>
       {modal.element}
+      {loginModal.element}
+      <ToastContainer />
     </div>
   );
 }

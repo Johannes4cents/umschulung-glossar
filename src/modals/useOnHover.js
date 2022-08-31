@@ -163,6 +163,7 @@ const useOnHover = ({
         {hover && (
           <div
             style={{
+              zIndex: 99999999,
               backgroundColor: "#4f4f4f",
               padding: "2px",
               borderRadius: "1rem/1rem",

@@ -14,6 +14,7 @@ import {
 import { httpsCallable } from "firebase/functions";
 import { ref, uploadBytes } from "firebase/storage";
 import { storage, db, functions } from "../firebase/fireInit";
+import { forArrayLength } from "./helperFuncs";
 
 async function getInfoFromRawId(rawId, afterFunc) {
   var fireInfo = null;
@@ -342,7 +343,35 @@ function cloudFunc(name, data, onResult, onError) {
     });
 }
 
+async function queryCollection(col, property, operator, filter, onResult) {
+  const q = query(collection(db, col), where(property, operator, filter));
+  const docs = await getDocs(q);
+  let foundDocs = [];
+  docs.forEach((doc) => {
+    foundDocs.push(doc.data());
+  });
+  onResult(foundDocs);
+}
+
+async function multiQueryCollection(col, queries, onResult) {
+  let qList = [];
+  forArrayLength(queries, (query) => {
+    qList.push(where(query[0], query[1], query[2]));
+  });
+  const colRef = collection(db, col);
+  let q = query(colRef, ...qList);
+  const snapshot = await getDocs(q);
+  let docs = [];
+  snapshot.forEach((d) => {
+    docs.push(d.data());
+  });
+  if (onResult) onResult(docs);
+  return docs;
+}
+
 export {
+  queryCollection,
+  multiQueryCollection,
   cloudFunc,
   getCreateUserListener,
   getBaseCollection,

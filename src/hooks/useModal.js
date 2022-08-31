@@ -84,7 +84,7 @@ const useModal = ({
     open,
     element: (
       <div>
-        {modalOpen && (
+        {modalOpen && modalPw == password && (
           <div>
             <div
               className={darkOverlay ? "overlay" : "overlayClear"}

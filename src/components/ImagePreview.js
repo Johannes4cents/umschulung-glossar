@@ -10,13 +10,15 @@ const ImagePreview = ({
   return (
     <div className="divRow">
       <div className="divRow" style={{ marginRight: "5px" }}>
-        <img
-          src="/images/icons/icon_cancel.png"
-          className="icon20"
-          onClick={() => {
-            deleteImage(term, image);
-          }}
-        />
+        {deleteImage && (
+          <img
+            src="/images/icons/icon_cancel.png"
+            className="icon20"
+            onClick={() => {
+              if (deleteImage) deleteImage(term, image);
+            }}
+          />
+        )}
       </div>
       <img
         style={{
