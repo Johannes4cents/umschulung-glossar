@@ -1,0 +1,176 @@
+.divFlex1CenterRowSpaceAround {
+  flex: 1;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: row;
+  display: flex;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.divRow100SpaceAround {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.divColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.divColumnColored {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #4a4a4a;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.divRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.divRowColored {
+  display: flex;
+  background: #4a4a4a;
+  flex-direction: row;
+  align-items: center;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.divRowSpaceAround {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.divRowSpaceBetween {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.divColumnCenterSpaceAround {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.divColumnCenterBetween {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.div100ColumnOverflow {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  width: 50px;
+  max-height: 209px;
+  background: #4a4a4a;
+}
+
+.div100widthSpaceBetween {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.divColored100widthSpaceBetween {
+  display: flex;
+  background: #4a4a4a;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 2px solid black;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.divColored100widthSpaceAround {
+  display: flex;
+  background: #4a4a4a;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-around;
+  border-bottom: 2px solid black;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.div200pxColoredRowSpaceAround {
+  display: flex;
+  background: #4a4a4a;
+  width: 200px;
+  flex-direction: row;
+  justify-content: space-around;
+  border-bottom: 2px solid black;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.dateDivDay {
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  width: 250px;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}

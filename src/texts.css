@@ -1,0 +1,163 @@
+.snippetTitleInput {
+  font-size: 18px;
+  text-align: center;
+  flex: 4;
+}
+
+.textWhiteCenter {
+  color: white;
+  text-align: center;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.textBlackCenter {
+  color: black;
+  text-align: center;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.textBlackBold {
+  color: black;
+  font-family: "Roboto-Bold", sans-serif;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.textBoldWhite {
+  font-family: "Roboto-Bold", sans-serif;
+  color: white;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.textWhite {
+  font-family: "Roboto-Regular", sans-serif;
+  color: white;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.textWhiteSmallBold {
+  font-size: small;
+  color: white;
+  font-family: "Roboto-Bold", sans-serif;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.textWhiteSmall {
+  font-size: small;
+  color: white;
+  font-family: "Roboto-Regular", sans-serif;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.textBlackSmall {
+  font-size: small;
+  color: black;
+  font-family: "Roboto-Regular", sans-serif;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.textSmallBold {
+  font-size: small;
+  font-family: "Roboto-Bold", sans-serif;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.input18center {
+  font-size: 18px;
+  text-align: center;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.textRobotoBoldWhite18 {
+  color: white;
+  font-size: 18px;
+  font-family: "Roboto-Bold", sans-serif;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.textBoldWhiteCenter {
+  color: white;
+  font-family: Roboto-Bold, sans-serif;
+  align-items: center;
+  text-align: center;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.textBlueSmallCenter {
+  color: rgb(17, 151, 230);
+  font-size: small;
+  font-family: Roboto-Regular, sans-serif;
+  align-items: center;
+  text-align: center;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.inspirationText {
+  font-style: italic;
+  font-size: large;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.fade-in {
+  transition: opacity 1s ease;
+}
+
+.fade-out {
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.inputField {
+  color: white;
+  font-family: "Roboto-Regular";
+  font-size: 15px;
+  min-height: 20px;
+  flex: 1;
+  overflow: auto;
+  resize: none;
+  border-radius: 3em/5em;
+  background-color: rgb(82, 82, 82);
+  border: none;
+  outline: none;
+}

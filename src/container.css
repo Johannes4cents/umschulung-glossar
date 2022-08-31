@@ -1,0 +1,382 @@
+.titleBar {
+  height: 25px;
+  margin-top: 5px;
+  justify-content: space-between;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-self: center;
+}
+
+.mainContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+}
+
+.signInBar {
+  margin-top: 0.5em;
+  margin-right: 0.5em;
+  display: flex;
+  justify-content: end;
+  margin-right: 20px;
+  align-items: center;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  justify-content: top;
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+.topBar {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-left: 20px;
+  align-items: center;
+}
+
+.containerColumn200MaxHeight {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  max-height: 200px;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.wordsButtonBar {
+  margin-top: 5px;
+  height: 50px;
+  justify-content: space-around;
+  display: flex;
+  width: 400px;
+  align-self: center;
+  align-items: center;
+}
+
+.navigationBarLeft {
+  width: 200px;
+  margin-top: 38px;
+}
+
+.navigationBarRight {
+  width: 200px;
+  margin-top: 50px;
+}
+
+.containerFlexRow {
+  display: flex;
+  flex-direction: row;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.containerFlexRow100 {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  cursor: pointer;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.containerFlexRowDark {
+  background-color: #5e5e5e;
+  display: flex;
+  flex-direction: row;
+}
+
+.containerFlexColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.containerFlexCenter {
+  display: flex;
+  align-items: center;
+}
+
+.container100widthColumEnd {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+}
+
+.container250pxColumnCenter {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.previewBarDark {
+  background-color: #5e5e5e;
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+  width: 600;
+}
+
+.previewBar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-self: center;
+  justify-content: center;
+}
+
+.dragDropContainer {
+  font-family: "Roboto-Regular", sans-serif;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  cursor: grab;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  will-change: width, height, transform, border;
+  z-index: 999;
+  pointer-events: none;
+}
+
+.userButton {
+  background-image: url("../public/images/buttons/user_button.png");
+  background-repeat: no-repeat;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 150px;
+  height: 50px;
+  cursor: pointer;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.optionButton {
+  background-image: url("../public/images/buttons/option_button.png");
+  background-repeat: no-repeat;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 150px;
+  height: 25px;
+  cursor: pointer;
+  margin-left: 5px;
+  margin-right: 5px;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.dayButton {
+  background-image: url("../public/images/buttons/day_button.png");
+  background-repeat: no-repeat;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  color: white;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.yearButtonObject {
+  background-image: url("../public/images/buttons/year_button_object.png");
+  background-repeat: no-repeat;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 50px;
+  height: 30px;
+  cursor: pointer;
+  color: white;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.timelineNumberButton {
+  background-image: url("../public/images/buttons/icon_line.png");
+  background-repeat: no-repeat;
+  align-self: center;
+  display: flex;
+  justify-content: space-around;
+  width: 36px;
+  height: 31px;
+  cursor: pointer;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.hourMinuteSecondButton {
+  background-repeat: no-repeat;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.monthButton {
+  background-image: url("../public/images/buttons/month_button.png");
+  background-repeat: no-repeat;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 60px;
+  height: 30px;
+  cursor: pointer;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.yearButton {
+  background-image: url("../public/images/buttons/year_button.png");
+  background-repeat: no-repeat;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 72px;
+  height: 30px;
+  cursor: pointer;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.wordHolderBox {
+  color: white;
+  background-color: #4a4a4a;
+  width: 175px;
+  height: 60px;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+  border-top: 10px;
+  border: solid;
+  position: relative;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.wordsContainer {
+  width: 600px;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-self: center;
+}
+
+.flagsContainer {
+  width: fit-content;
+  max-width: 180px;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-self: center;
+  justify-content: space-between;
+  position: absolute;
+  transform: translate(-100%, 0%);
+  background-color: #4a4a4a;
+}
+
+.cursor {
+  font-family: "Roboto-Regular", sans-serif;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  cursor: grab;
+  background-color: #4a4a4a;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  will-change: width, height, transform, border;
+  z-index: 999;
+  pointer-events: none;
+}
+
+.App {
+  background-color: #4a4a4a;
+  display: flex;
+  justify-content: baseline;
+  width: 100%;
+  height: 100vh;
+  flex-direction: column;
+}
+
+.bgSection {
+  background-image: url("../public/images/buttons/bg_section.png");
+  color: white;
+  font-family: Roboto-Bold;
+  height: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sectionBg {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  flex: 1;
+  border: 1px solid gray;
+  background-color: #535353;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+}
+
+.ressourceContainer {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-self: center;
+  position: relative;
+}

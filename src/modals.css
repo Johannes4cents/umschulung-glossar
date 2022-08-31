@@ -1,0 +1,57 @@
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+  background: rgba(61, 61, 61, 0.75);
+}
+
+.overlayClear {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+  background: rgba(61, 61, 61, 0);
+}
+
+.modalContent {
+  position: absolute;
+  background: #4a4a4a;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.contextMenu {
+  position: absolute;
+}
+
+.modalContentRow {
+  position: absolute;
+  transform: translate(-100%, 0%);
+  background: #4a4a4a;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  border: #4a4a4a solid 2px;
+  border-radius: 5px;
+}
+
+.dateModal {
+  display: flex;
+  position: absolute;
+  transform: translate(-100%, 0%);
+  background: #4a4a4a;
+  width: 200;
+  height: auto;
+  overflow-x: wrap;
+  flex-direction: row;
+  border: #4a4a4a solid 2px;
+  border-radius: 5px;
+}
