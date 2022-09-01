@@ -5,7 +5,6 @@ function makeTerm(name, cats, author) {
     name: name ?? "",
     aliases: [],
     cats: cats ?? [],
-    definition: "",
     images: [],
     linked: [],
     id: getRandomId(),

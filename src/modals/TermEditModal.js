@@ -57,6 +57,7 @@ const TermEditModal = ({ setSelectedTerm, terms }) => {
       closeModal();
       console.log("termSaved");
     }
+    console.log("openTerm saving - ", openTerm);
     setDocInFirestore("terms", openTerm.id, openTerm, closeAfterSave);
     setSelectedTerm(openTerm);
   }

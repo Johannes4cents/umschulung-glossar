@@ -5,6 +5,7 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import draftToHtml from "draftjs-to-html";
 
 const DraftEditor = ({ openTerm, setOpenTerm }) => {
+  const [oldId, setOld] = useState(null);
   const [editorState, setEditorState] = useState(() =>
     openTerm.rawContentState != null
       ? EditorState.createWithContent(convertFromRaw(openTerm.rawContentState))
@@ -12,11 +13,14 @@ const DraftEditor = ({ openTerm, setOpenTerm }) => {
   );
 
   useEffect(() => {
-    if (openTerm.rawContentState != null) {
-      const oldState = convertFromRaw(openTerm.rawContentState);
-      const oldContent = EditorState.createWithContent(oldState);
-      console.log("oldState - ", oldState);
-      setEditorState(oldContent);
+    if (oldId != openTerm.id) {
+      setOld(openTerm.id);
+      if (openTerm.rawContentState != null) {
+        const oldState = convertFromRaw(openTerm.rawContentState);
+        const oldContent = EditorState.createWithContent(oldState);
+        setEditorState(oldContent);
+      } else {
+      }
     }
   }, [openTerm]);
 
