@@ -2,11 +2,6 @@ import React from "react";
 import ImagePreview from "../components/ImagePreview";
 import RelatedLinksBar from "./RelatedLinksBar";
 import TopToolBar from "./TopToolBar";
-import ReactHtmlParser, {
-  processNodes,
-  convertNodeToElement,
-  htmlparser2,
-} from "react-html-parser";
 
 const MainExplanationSection = ({
   selectedTerm,
@@ -71,9 +66,7 @@ const MainExplanationSection = ({
 const DefinitionField = ({ selectedTerm }) => {
   return (
     <div className="divColumn">
-      <div className="textBoldWhite">
-        {ReactHtmlParser(selectedTerm.content)}
-      </div>
+      <div className="textBoldWhite">{selectedTerm.content}</div>
     </div>
   );
 };
