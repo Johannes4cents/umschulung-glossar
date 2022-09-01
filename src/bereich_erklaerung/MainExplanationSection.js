@@ -2,6 +2,7 @@ import React from "react";
 import ImagePreview from "../components/ImagePreview";
 import RelatedLinksBar from "./RelatedLinksBar";
 import TopToolBar from "./TopToolBar";
+import parse from "html-react-parser";
 
 const MainExplanationSection = ({
   selectedTerm,
@@ -66,7 +67,7 @@ const MainExplanationSection = ({
 const DefinitionField = ({ selectedTerm }) => {
   return (
     <div className="divColumn">
-      <div className="textBoldWhite">{selectedTerm.content}</div>
+      <div className="textBoldWhite">{parse(selectedTerm.content)}</div>
     </div>
   );
 };
