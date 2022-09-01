@@ -1,13 +1,9 @@
 import { getDownloadURL, ref } from "firebase/storage";
 import React, { useEffect, useRef, useState } from "react";
 import CatsListTerms from "../bereich_begriffs_liste/CatsListTerms";
-import SimpleTermHolder from "../bereich_begriffs_liste/SimpleTermHolder";
-import ClickedColorImage from "../components/ClickedColorImage";
 import DragDropDiv from "../components/DragDropDiv";
-import ImagePreview from "../components/ImagePreview";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { storage } from "../firebase/fireInit";
-import useModal from "../hooks/useModal";
 import {
   setDocInFirestore,
   uploadImageToStorage,
@@ -15,8 +11,12 @@ import {
 import { forArrayLength, getItemById } from "../misc/helperFuncs";
 import { makeTerm } from "../misc/makeObjects";
 import miscStore from "../stores/miscStore";
-import EnlargedImageModal from "./EnlargedImageModal";
 import PickLinksModal from "./PickLinksModal";
+import ImagesAndLinksBar from "./TerminEditElements/ImagesAndLinksBar";
+import PropFieldDiv from "./TerminEditElements/PropFieldDiv";
+import TermEditBottomBar from "./TerminEditElements/TermEditBottomBar";
+
+import DraftEditor from "./TerminEditElements/DraftEditor";
 
 const TermEditModal = ({ setSelectedTerm, terms }) => {
   const [openTerm, setOpenTerm] = useState(makeTerm());
@@ -65,7 +65,7 @@ const TermEditModal = ({ setSelectedTerm, terms }) => {
     if (
       openTerm.name.length > 1 &&
       openTerm.cats.length > 0 &&
-      openTerm.definition.length > 2
+      openTerm.content.length > 2
     ) {
       saveTerm();
     }
@@ -169,20 +169,9 @@ const TermEditModal = ({ setSelectedTerm, terms }) => {
         <div className="textWhiteSmall">Andere Begriffe verlinken</div>
       </div>
     ),
-    beschreibung: (
-      <textarea
-        value={openTerm.definition}
-        onChange={(e) => {
-          onDescriptionChange(e.target.value);
-        }}
-        onKeyDown={(e) => {
-          onInputEnter(e, refDescriptionInput);
-        }}
-        type="text"
-        ref={refDescriptionInput}
-        style={{ resize: "none", width: "90%", height: "300px" }}
-      />
-    ),
+
+    beschreibung: <DraftEditor openTerm={openTerm} setOpenTerm={setOpenTerm} />,
+
     aliases: (
       <div className="divColumn">
         <div className="divRow">
@@ -297,9 +286,12 @@ const TermEditModal = ({ setSelectedTerm, terms }) => {
         >
           <div
             className="textBoldWhite"
+            onClick={() => {
+              console.log("openTerm - ", openTerm);
+            }}
             style={{
               fontSize: "20px",
-              color: "lightgray",
+
               marginBottom: "10px",
             }}
           >
@@ -333,128 +325,13 @@ const TermEditModal = ({ setSelectedTerm, terms }) => {
             linkToOtherTerms={valueElements.linkToOtherTerms}
           />
         </div>
-        <ImagesAndLinks
+        <ImagesAndLinksBar
           openTerm={openTerm}
           setOpenTerm={setOpenTerm}
           terms={terms}
         />
       </div>
     </DragDropDiv>
-  );
-};
-
-const ImagesAndLinks = ({ openTerm, setOpenTerm, terms }) => {
-  return (
-    <div
-      className="divColumn"
-      style={{
-        height: "550px",
-        marginLeft: "20px",
-        width: "200px",
-        backgroundColor: "#4f4f4f",
-      }}
-    >
-      <LinksList openTerm={openTerm} setOpenTerm={setOpenTerm} terms={terms} />
-      <ImagesList openTerm={openTerm} setOpenTerm={setOpenTerm} />
-    </div>
-  );
-};
-
-const LinksList = ({ openTerm, setOpenTerm, terms }) => {
-  const [links, setLinks] = useState([]);
-
-  function deleteLink(link) {
-    setOpenTerm({
-      ...openTerm,
-      linked: openTerm.linked.filter((id) => id != link.id),
-    });
-  }
-
-  useEffect(() => {
-    setLinks(openTerm.linked.map((id) => getItemById(id, terms)));
-  }, [openTerm]);
-  return (
-    <div
-      className="divColumn"
-      style={{ height: "50%", width: "100%", overflow: "auto" }}
-    >
-      <div className="textBoldWhite">Links</div>
-      <div className="divColumn" style={{ overflow: "auto", width: "100%" }}>
-        {links.map((l) => (
-          <SimpleTermHolder term={l} key={l.id} deleteTerm={deleteLink} />
-        ))}
-      </div>
-    </div>
-  );
-};
-
-const ImagesList = ({ openTerm, setOpenTerm }) => {
-  const modal = useModal({
-    modalContent: <EnlargedImageModal />,
-    password: "biggerImage",
-  });
-
-  const deleteImage = (term, imgUrl) => {
-    setOpenTerm({
-      ...openTerm,
-      images: openTerm.images.filter((url) => url != imgUrl),
-    });
-  };
-
-  return (
-    <div className="divColumn" style={{ height: "50%", overflow: "auto" }}>
-      <div className="textBoldWhite">Images</div>
-      <div className="divColumn" style={{ overflow: "auto" }}>
-        {openTerm.images.map((imgUrl) => (
-          <ImagePreview
-            key={imgUrl}
-            size={120}
-            image={imgUrl}
-            onImageClicked={() => {
-              modal.open("biggerImage");
-            }}
-            deleteImage={deleteImage}
-            term={openTerm}
-          />
-        ))}
-      </div>
-    </div>
-  );
-};
-
-const PropFieldDiv = ({ description, valueElement }) => {
-  return (
-    <div className="divColumn" style={{ width: "100%", marginBottom: "5px" }}>
-      <div className="textWhite">{description}</div>
-      {valueElement}
-    </div>
-  );
-};
-
-const TermEditBottomBar = ({
-  saveTerm,
-  openTerm,
-  uploadImageBtn,
-  linkToOtherTerms,
-}) => {
-  return (
-    <div
-      className="divRow"
-      style={{ width: "100%", justifyContent: "space-between" }}
-    >
-      {linkToOtherTerms}
-      {uploadImageBtn}
-      <ClickedColorImage
-        imgUrl={"/images/icons/icon_create.png"}
-        size={30}
-        itemSelected={
-          openTerm.name.length > 1 &&
-          openTerm.cats.length > 0 &&
-          openTerm.definition.length > 2
-        }
-        onClick={saveTerm}
-      />
-    </div>
   );
 };
 

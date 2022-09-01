@@ -11,6 +11,8 @@ function makeTerm(name, cats, author) {
     id: getRandomId(),
     author: author,
     editHistory: [],
+    rawContentState: null,
+    content: null,
   };
 }
 

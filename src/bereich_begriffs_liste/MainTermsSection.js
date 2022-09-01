@@ -35,12 +35,14 @@ const MainTermsSection = ({
   const { setTermPayload, loggedIn, info } = miscStore();
 
   function openTermModal() {
-    modal.open("newTerm");
-    setTermPayload({
-      from: "new",
-      openTerm: makeTerm(searchInput, selectedCats, info.username),
-    });
-    setSearchInput("");
+    if (searchInput.length > 2 && displayedTerms.length < 1) {
+      modal.open("newTerm");
+      setTermPayload({
+        from: "new",
+        openTerm: makeTerm(searchInput, selectedCats, info.username),
+      });
+      setSearchInput("");
+    }
   }
 
   const onSearchEnter = (e) => {
@@ -70,6 +72,7 @@ const MainTermsSection = ({
       </div>
       <div className="divRow" style={{ width: "100%" }}>
         <input
+          placeholder="Begriff Eingeben"
           onKeyDown={onSearchEnter}
           style={{ textAlign: "center" }}
           value={searchInput}
@@ -78,14 +81,19 @@ const MainTermsSection = ({
           }}
         />
         <img src="/images/drawable/icon_search.png" className="icon25" />
-        {loggedIn && searchInput.length > 1 && displayedTerms.length < 1 && (
-          <img
-            onClick={openTermModal}
-            src="/images/icons/icon_new.png"
-            className="icon25"
-            style={{ marginLeft: "10px" }}
-          />
-        )}
+        <img
+          onClick={openTermModal}
+          src="/images/icons/icon_neuer_eintrag.png"
+          className="icon25"
+          style={{
+            marginLeft: "10px",
+            filter:
+              searchInput.length > 2 && displayedTerms.length < 1
+                ? null
+                : "grayscale(100%)",
+          }}
+        />
+
         {!loggedIn && searchInput.length > 1 && displayedTerms.length < 1 && (
           <div className="textWhiteSmall">
             LogIn um neue Einträge zu schreiben

@@ -69,3 +69,25 @@ input[type="number"]::-webkit-outer-spin-button {
   border-radius: 50%;
   animation: spinner 1.5s linear infinite;
 }
+
+.textEditor {
+  background-color: #282c34;
+  min-height: 5vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  margin-bottom: 5vh;
+  text-align: center;
+}
+
+.draftToolbar {
+  z-index: 999999999;
+}
+
+.draftEditor {
+  background-color: #4f4f4f;
+  color: white;
+}
