@@ -73,19 +73,24 @@ const TopToolBar = ({ selectedTerm, setSelectedTerm, modal }) => {
         description={"Frage Stellen"}
       />
       <AuthorField selectedTerm={selectedTerm} />
+      <AuthorField selectedTerm={selectedTerm} lastEdit={true} />
       {confModal.element}
       {questionModal.element}
     </div>
   );
 };
 
-const AuthorField = ({ selectedTerm }) => {
+const AuthorField = ({ selectedTerm, lastEdit = false }) => {
   return (
     <div className="divColumn">
       <div className="textWhiteSmall" style={{ color: "gray" }}>
-        Author
+        {!lastEdit ? "Author" : "Last Edit"}
       </div>
-      <div className="textWhite">{selectedTerm.author ?? "Unknown"}</div>
+      <div className="textWhite">
+        {!lastEdit
+          ? selectedTerm.author ?? "Unknown"
+          : selectedTerm.lastEditor ?? "unknown"}
+      </div>
     </div>
   );
 };

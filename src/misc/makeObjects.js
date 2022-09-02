@@ -9,6 +9,7 @@ function makeTerm(name, cats, author) {
     linked: [],
     id: getRandomId(),
     author: author,
+    lastEditor: author,
     editHistory: [],
     rawContentState: null,
     content: null,
