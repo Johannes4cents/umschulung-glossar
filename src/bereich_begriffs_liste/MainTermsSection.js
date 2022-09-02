@@ -5,6 +5,7 @@ import miscStore from "../stores/miscStore";
 import CatsListTerms from "./CatsListTerms";
 import { toast } from "react-toastify";
 import TermList from "./TermList";
+import MainNuetzlicheLinks from "./nuetzlicheLinks/MainNuetzlicheLinks";
 
 const MainTermsSection = ({
   selectedTerm,
@@ -140,6 +141,7 @@ const MainTermsSection = ({
         selectedFilter={checkmarkTest}
         selectedCats={selectedCats}
       />
+      <MainNuetzlicheLinks />
     </div>
   );
 };

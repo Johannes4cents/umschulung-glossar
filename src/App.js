@@ -17,6 +17,7 @@ function App() {
   const [searchInput, setSearchInput] = useState("");
   const [displayedTerms, setDisplayedterms] = useState([]);
   const [questions, setQuestions] = useState([]);
+  const [linkList, setLinkList] = useState([]);
   const { setInfo, loggedIn, info } = miscStore();
 
   useEffect(() => {
@@ -139,7 +140,7 @@ function App() {
       </div>
       {modal.element}
       {loginModal.element}
-      <ToastContainer />
+      <ToastContainer linkList={linkList} setLinkList={setLinkList} />
     </div>
   );
 }
