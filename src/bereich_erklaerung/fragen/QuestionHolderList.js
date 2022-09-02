@@ -1,47 +1,60 @@
-import React from "react";
+import React, { useState } from "react";
 import HoverImage from "../../components/HoverImage";
+import useModal from "../../hooks/useModal";
 import useOnHover from "../../modals/useOnHover";
+import AnswerQuestionModal from "../../QuestionAndAnswers/AnswerQuestionModal";
+import AskQuestionModal from "../../QuestionAndAnswers/AskQuestionModal";
+import miscStore from "../../stores/miscStore";
+import ExpandedQuestionHolder from "./ExpandedQuestionHolder";
+import SimpleQuestionHolder from "./SimpleQuestionHolder";
 
-const QuestionHolderList = ({ selectedTerm, question, index }) => {
-  const hover = useOnHover({
-    item: selectedTerm,
-    hoverBgColor: "#2f2f2f",
-    normalBgColor: index % 2 == 0 ? "#3f3f3f" : "#5f5f5f",
+const QuestionHolderList = ({
+  selectedTerm,
+  question,
+  index,
+  setSelectedTerm,
+}) => {
+  const { info } = miscStore();
+  const [expanded, setExpanded] = useState(false);
+  const answerModal = useModal({
+    password: "answer",
+    modalContent: (
+      <AnswerQuestionModal term={selectedTerm} question={question} />
+    ),
   });
+
+  const questionModal = useModal({
+    password: "updateQuestion",
+    modalContent: (
+      <AskQuestionModal term={selectedTerm} incomingQuestion={question} />
+    ),
+    position: "topLeft",
+    translate: { x: 0, y: 0 },
+  });
+
   return (
-    <div
-      {...hover.divProps}
-      className="divRow"
-      style={{
-        borderRadius: "1rem/1rem",
-        padding: "4px",
-        width: "95%",
-        backgroundColor: hover.bgColor,
-      }}
-    >
-      <QField
-        description={"author"}
-        value={question.author}
-        color="lightblue"
-      />
-      <div className="divColumn" style={{ flex: 1, marginLeft: "10px" }}>
-        <div className="textWhiteSmall" style={{ color: "gray" }}>
-          Frage
-        </div>
-        <div
-          className="textWhite"
-          style={{ textAlign: "center", marginLeft: "5px" }}
-        >
-          {question.question}
-        </div>
-      </div>
-      <HoverImage
-        description={"beantworten"}
-        standardGray={true}
-        imgUrl={"Images/icons/icon_answer.png"}
-        maxWidth={25}
-        maxHeight={40}
-      />
+    <div style={{ width: "100%" }}>
+      {expanded && (
+        <ExpandedQuestionHolder
+          answerModal={answerModal}
+          questionModal={questionModal}
+          QField={QField}
+          info={info}
+          HoverImage={HoverImage}
+          selectedTerm={selectedTerm}
+          index={index}
+          question={question}
+          setExpanded={setExpanded}
+          setSelectedTerm={setSelectedTerm}
+        />
+      )}
+      {!expanded && (
+        <SimpleQuestionHolder
+          question={question}
+          setExpanded={setExpanded}
+          QField={QField}
+        />
+      )}
     </div>
   );
 };

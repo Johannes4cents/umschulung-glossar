@@ -28,11 +28,11 @@ function makeQuestion(author) {
   };
 }
 
-function makeAnswer(author, questionId, answer) {
+function makeAnswer(author, questionId) {
   return {
     author,
     questionId,
-    answer,
+    answer: "",
     accepted: false,
     date: new Date().getTime(),
     id: getRandomId(),

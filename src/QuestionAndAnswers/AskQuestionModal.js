@@ -4,11 +4,17 @@ import { setDocInFirestore } from "../misc/handleFirestore";
 import { makeQuestion } from "../misc/makeObjects";
 import miscStore from "../stores/miscStore";
 
-const AskQuestionModal = ({ term }) => {
+const AskQuestionModal = ({ term, incomingQuestion }) => {
   const { info, closeModal } = miscStore();
   const [question, setQuestion] = useState(makeQuestion(info.username));
   const refTitel = useRef(null);
   const refContent = useRef(null);
+
+  useEffect(() => {
+    if (incomingQuestion) {
+      setQuestion(incomingQuestion);
+    }
+  }, [incomingQuestion]);
 
   useEffect(() => {
     if (refTitel.current != null) {
@@ -19,14 +25,16 @@ const AskQuestionModal = ({ term }) => {
   function saveQuestion() {
     if (question.title.length > 2 || question.question.length > 5) {
       setDocInFirestore("questions", question.id, question, () => {
-        const newTerm = {
-          ...term,
-          questions: [...(term.questions ?? []), question.id],
-        };
-        setDocInFirestore("terms", term.id, newTerm, () => {
-          toast(`Frage für den Begriff ${term.name} gespeichert`);
-          closeModal();
-        });
+        if (![...(term.questions ?? [])].includes(question.id)) {
+          const newTerm = {
+            ...term,
+            questions: [...(term.questions ?? []), question.id],
+          };
+          setDocInFirestore("terms", term.id, newTerm, () => {
+            toast(`Frage für den Begriff ${term.name} gespeichert`);
+            closeModal();
+          });
+        } else closeModal();
       });
     } else toast("Frage muss einen Titel und eine Beschreibung haben");
   }

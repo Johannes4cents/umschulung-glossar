@@ -27,6 +27,7 @@ const ExpandedQuestions = ({ selectedTerm, setSelectedTerm, questions }) => {
           key={q.id}
           question={q}
           selectedTerm={selectedTerm}
+          setSelectedTerm={setSelectedTerm}
           index={index}
         />
       ))}
