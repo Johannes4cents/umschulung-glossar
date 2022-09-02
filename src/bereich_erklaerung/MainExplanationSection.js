@@ -5,6 +5,8 @@ import TopToolBar from "./TopToolBar";
 import parse from "html-react-parser";
 import AttachedFilesBar from "./AttachedFilesBar";
 import QuestionsBar from "./fragen/QuestionsBar";
+import useModal from "../hooks/useModal";
+import ViewImagesModal from "../modals/ViewImagesModal";
 
 const MainExplanationSection = ({
   selectedTerm,
@@ -92,6 +94,15 @@ const DefinitionField = ({ selectedTerm }) => {
 };
 
 const ImagesRow = ({ selectedTerm }) => {
+  const imageModal = useModal({
+    password: "openImages",
+    modalContent: <ViewImagesModal images={selectedTerm.images} />,
+  });
+
+  function onImageClicked(term, image) {
+    imageModal.open("openImages");
+  }
+
   return (
     <div
       className="divRow"
@@ -102,8 +113,14 @@ const ImagesRow = ({ selectedTerm }) => {
       }}
     >
       {selectedTerm.images.map((url) => (
-        <ImagePreview image={url} size={150} />
+        <ImagePreview
+          image={url}
+          size={150}
+          onImageClicked={onImageClicked}
+          term={selectedTerm}
+        />
       ))}
+      {imageModal.element}
     </div>
   );
 };

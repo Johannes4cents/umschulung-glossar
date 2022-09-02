@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
+import miscStore from "../stores/miscStore";
 
-const ImagePreview = ({
-  image,
-  onImageClicked,
-  deleteImage,
-  term,
-  size = 50,
-}) => {
+const ImagePreview = ({ image, deleteImage, term, size = 50 }) => {
+  const { setClickedImages } = miscStore();
+
+  useEffect(() => {
+    console.log("imagePreview Term - ", term);
+  }, [term]);
   return (
     <div className="divRow">
       <div className="divRow" style={{ marginRight: "5px" }}>
@@ -28,7 +28,7 @@ const ImagePreview = ({
         }}
         src={image}
         onClick={() => {
-          onImageClicked(term, image);
+          setClickedImages(term.images);
         }}
       />
     </div>

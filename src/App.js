@@ -9,6 +9,7 @@ import SignUpWithEMailModal from "./modals/SignUpWithEmailModal";
 import TermEditModal from "./modals/TermEditModal";
 import miscStore from "./stores/miscStore";
 import "react-toastify/dist/ReactToastify.css";
+import ClickedImageContainer from "./components/ClickedImageContainer";
 
 function App() {
   const [selectedTerm, setSelectedTerm] = useState(null);
@@ -72,6 +73,7 @@ function App() {
   });
   return (
     <div className="App">
+      <ClickedImageContainer />
       <div
         className="divColumn"
         style={{ width: "100%", justifyContent: "center", marginTop: "10px" }}
