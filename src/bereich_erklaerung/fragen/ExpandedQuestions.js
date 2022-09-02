@@ -14,12 +14,15 @@ const ExpandedQuestions = ({ selectedTerm, setSelectedTerm, questions }) => {
       );
       console.log("questionsList - ", questionList);
       setDisplayedQuestions(questionList);
+    } else {
+      setDisplayedQuestions([]);
     }
   }, [selectedTerm, questions]);
 
   return (
     <div
       className="divColumn"
+      G
       style={{ maxHeight: "300px", overflow: "auto", width: "100%" }}
     >
       {displayedQuestions.map((q, index) => (
