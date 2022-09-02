@@ -158,6 +158,7 @@ const useOnHover = ({
         )}
       </div>
     ),
+    hover,
     hoverDescription: (
       <div style={{ position: "relative" }}>
         {hover && (

@@ -16,7 +16,16 @@ function App() {
   const [selectedCats, setSelectedCats] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [displayedTerms, setDisplayedterms] = useState([]);
+  const [questions, setQuestions] = useState([]);
   const { setInfo, loggedIn, info } = miscStore();
+
+  useEffect(() => {
+    var unsub = null;
+    getCollectionListener("questions", (list, unsubscribe) => {
+      unsub = unsubscribe;
+      setQuestions(list);
+    });
+  }, []);
 
   function checkUserStartup() {
     let localInfo = JSON.parse(localStorage.getItem("info"));
@@ -125,6 +134,7 @@ function App() {
           editModal={modal}
           selectedTerm={selectedTerm}
           setSelectedTerm={setSelectedTerm}
+          questions={questions}
         />
       </div>
       {modal.element}

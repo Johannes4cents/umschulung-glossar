@@ -4,12 +4,14 @@ import RelatedLinksBar from "./RelatedLinksBar";
 import TopToolBar from "./TopToolBar";
 import parse from "html-react-parser";
 import AttachedFilesBar from "./AttachedFilesBar";
+import QuestionsBar from "./fragen/QuestionsBar";
 
 const MainExplanationSection = ({
   selectedTerm,
   setSelectedTerm,
   editModal,
   terms,
+  questions,
 }) => {
   return (
     <div className="divColumn" style={{ height: "100%", width: "700px" }}>
@@ -70,6 +72,11 @@ const MainExplanationSection = ({
 
             <AttachedFilesBar selectedTerm={selectedTerm} />
           </div>
+          <QuestionsBar
+            selectedTerm={selectedTerm}
+            setSelectedTerm={setSelectedTerm}
+            questions={questions}
+          />
         </div>
       )}
     </div>
