@@ -8,6 +8,7 @@ import { catList } from "./misc/lists";
 import SignUpWithEMailModal from "./modals/SignUpWithEmailModal";
 import TermEditModal from "./modals/TermEditModal";
 import miscStore from "./stores/miscStore";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [selectedTerm, setSelectedTerm] = useState(null);

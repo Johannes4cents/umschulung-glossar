@@ -1,4 +1,5 @@
 import React from "react";
+import FilesList from "./FilesList";
 import ImagesList from "./ImagesList";
 import LinksList from "./LinksList";
 
@@ -13,6 +14,7 @@ const ImagesAndLinksBar = ({ openTerm, setOpenTerm, terms }) => {
         backgroundColor: "#4f4f4f",
       }}
     >
+      <FilesList openTerm={openTerm} setOpenTerm={setOpenTerm} />
       <LinksList openTerm={openTerm} setOpenTerm={setOpenTerm} terms={terms} />
       <ImagesList openTerm={openTerm} setOpenTerm={setOpenTerm} />
     </div>

@@ -18,7 +18,7 @@ const LinksList = ({ openTerm, setOpenTerm, terms }) => {
   return (
     <div
       className="divColumn"
-      style={{ height: "50%", width: "100%", overflow: "auto" }}
+      style={{ height: "30%", width: "100%", overflow: "auto" }}
     >
       <div className="textBoldWhite">Links</div>
       <div className="divColumn" style={{ overflow: "auto", width: "100%" }}>

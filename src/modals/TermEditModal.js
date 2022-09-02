@@ -17,18 +17,25 @@ import PropFieldDiv from "./TerminEditElements/PropFieldDiv";
 import TermEditBottomBar from "./TerminEditElements/TermEditBottomBar";
 
 import DraftEditor from "./TerminEditElements/DraftEditor";
+import { EditorState, convertFromRaw } from "draft-js";
 
 const TermEditModal = ({ setSelectedTerm, terms }) => {
   const [openTerm, setOpenTerm] = useState(makeTerm());
   const [newAlias, setNewAlias] = useState("");
   const refNameInput = useRef(null);
-  const refDescriptionInput = useRef(null);
+  const refEditor = useRef(null);
   const refFileInput = useRef(null);
   const refAliaseInput = useRef(null);
   const [from, setFrom] = useState("new");
   const { termPayload, closeModal, dragCursor, info } = miscStore();
   const [loadingImage, setLoadingImage] = useState(false);
   const [pickLinksOpen, setPickLinksOpen] = useState(false);
+
+  const [editorState, setEditorState] = useState(() =>
+    openTerm.rawContentState != null
+      ? EditorState.createWithContent(convertFromRaw(openTerm.rawContentState))
+      : EditorState.createEmpty()
+  );
 
   useEffect(() => {
     if (termPayload != null) {
@@ -115,7 +122,7 @@ const TermEditModal = ({ setSelectedTerm, terms }) => {
     });
   }
 
-  const onFileChange = (e) => {
+  const onImageFileChange = (e) => {
     let file = e.target.files[0];
     addImageToTerm(file);
   };
@@ -129,7 +136,7 @@ const TermEditModal = ({ setSelectedTerm, terms }) => {
 
   function onAliasEnter(e) {
     if (e.key == "Enter") {
-      refDescriptionInput.current.focus();
+      setEditorState(EditorState.moveFocusToEnd(editorState));
     }
   }
 
@@ -146,7 +153,7 @@ const TermEditModal = ({ setSelectedTerm, terms }) => {
           >
             <img src={"/images/icons/icon_image.png"} className="icon25" />
             <input
-              onChange={onFileChange}
+              onChange={onImageFileChange}
               type={"file"}
               ref={refFileInput}
               style={{ display: "none" }}
@@ -171,7 +178,15 @@ const TermEditModal = ({ setSelectedTerm, terms }) => {
       </div>
     ),
 
-    beschreibung: <DraftEditor openTerm={openTerm} setOpenTerm={setOpenTerm} />,
+    beschreibung: (
+      <DraftEditor
+        openTerm={openTerm}
+        setOpenTerm={setOpenTerm}
+        refEditor={refEditor}
+        editorState={editorState}
+        setEditorState={setEditorState}
+      />
+    ),
 
     aliases: (
       <div className="divColumn">
@@ -322,8 +337,12 @@ const TermEditModal = ({ setSelectedTerm, terms }) => {
           <TermEditBottomBar
             saveTerm={onSaveButtonClicked}
             openTerm={openTerm}
+            setOpenTerm={setOpenTerm}
+            setLoadingImage={setLoadingImage}
             uploadImageBtn={valueElements.uploadImageBtn}
             linkToOtherTerms={valueElements.linkToOtherTerms}
+            loadingImage={loadingImage}
+            onFileChange={onImageFileChange}
           />
         </div>
         <ImagesAndLinksBar

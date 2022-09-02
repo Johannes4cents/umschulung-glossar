@@ -3,6 +3,7 @@ import ImagePreview from "../components/ImagePreview";
 import RelatedLinksBar from "./RelatedLinksBar";
 import TopToolBar from "./TopToolBar";
 import parse from "html-react-parser";
+import AttachedFilesBar from "./AttachedFilesBar";
 
 const MainExplanationSection = ({
   selectedTerm,
@@ -53,11 +54,22 @@ const MainExplanationSection = ({
           <div style={{ marginBottom: "15px" }} />
           <DefinitionField selectedTerm={selectedTerm} />
           <ImagesRow selectedTerm={selectedTerm} />
-          <RelatedLinksBar
-            selectedTerm={selectedTerm}
-            setSelectedTerm={setSelectedTerm}
-            terms={terms}
-          />
+          <div
+            className="divRow"
+            style={{
+              width: "100%",
+              justifyContent: "space-between",
+              borderTop: "1px dotted white",
+            }}
+          >
+            <RelatedLinksBar
+              selectedTerm={selectedTerm}
+              setSelectedTerm={setSelectedTerm}
+              terms={terms}
+            />
+
+            <AttachedFilesBar selectedTerm={selectedTerm} />
+          </div>
         </div>
       )}
     </div>

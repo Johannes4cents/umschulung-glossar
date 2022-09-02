@@ -1,9 +1,13 @@
 import ClickedColorImage from "../../components/ClickedColorImage";
+import UploadPdf from "./UploadPdf";
 const TermEditBottomBar = ({
   saveTerm,
   openTerm,
   uploadImageBtn,
   linkToOtherTerms,
+  loadingImage,
+  setLoadingImage,
+  setOpenTerm,
 }) => {
   return (
     <div
@@ -12,6 +16,12 @@ const TermEditBottomBar = ({
     >
       {linkToOtherTerms}
       {uploadImageBtn}
+      <UploadPdf
+        loadingImage={loadingImage}
+        setLoadingImage={setLoadingImage}
+        openTerm={openTerm}
+        setOpenTerm={setOpenTerm}
+      />
       <ClickedColorImage
         imgUrl={"/images/icons/icon_create.png"}
         size={30}

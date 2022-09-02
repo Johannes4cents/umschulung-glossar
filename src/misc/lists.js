@@ -12,6 +12,7 @@ const cat = (name, imgUrl, id) => {
 const catList = [
   cat("coding", imgStem("coding")),
   cat("kaufmännisch", imgStem("kaufmann")),
+  cat("C#", imgStem("csharp")),
 ];
 
 export { catList };

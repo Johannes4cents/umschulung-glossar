@@ -4,13 +4,14 @@ import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import draftToHtml from "draftjs-to-html";
 
-const DraftEditor = ({ openTerm, setOpenTerm }) => {
+const DraftEditor = ({
+  openTerm,
+  setOpenTerm,
+  refEditor,
+  editorState,
+  setEditorState,
+}) => {
   const [oldId, setOld] = useState(null);
-  const [editorState, setEditorState] = useState(() =>
-    openTerm.rawContentState != null
-      ? EditorState.createWithContent(convertFromRaw(openTerm.rawContentState))
-      : EditorState.createEmpty()
-  );
 
   useEffect(() => {
     if (oldId != openTerm.id) {
@@ -33,6 +34,7 @@ const DraftEditor = ({ openTerm, setOpenTerm }) => {
 
   return (
     <Editor
+      ref={refEditor}
       editorState={editorState}
       toolbarClassName="draftToolbar"
       wrapperClassName="wrapperClassName"

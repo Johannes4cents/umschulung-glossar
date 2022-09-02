@@ -50,6 +50,17 @@ const TermHolderList = ({
       >
         {term.name}
       </div>
+      {(term.questions ?? []).length > 0 && (
+        <div
+          className="divRow"
+          style={{ marginLeft: "2px", marginRight: "10px" }}
+        >
+          <div className="textSmallWhite" style={{ color: "turquoise" }}>
+            {term.questions.length}
+          </div>
+          <img src="/images/icons/icon_question.png" className="icon15" />
+        </div>
+      )}
       <div className="divColumn">
         <div className="textWhiteSmall" style={{ color: "gray" }}>
           Kategorien

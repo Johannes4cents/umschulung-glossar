@@ -12,7 +12,31 @@ function makeTerm(name, cats, author) {
     editHistory: [],
     rawContentState: null,
     content: null,
+    questions: [],
   };
 }
 
-export { makeTerm };
+function makeQuestion(author) {
+  return {
+    author,
+    title: "",
+    question: "",
+    answered: false,
+    date: new Date().getTime(),
+    id: getRandomId(),
+    answers: [],
+  };
+}
+
+function makeAnswer(author, questionId, answer) {
+  return {
+    author,
+    questionId,
+    answer,
+    accepted: false,
+    date: new Date().getTime(),
+    id: getRandomId(),
+  };
+}
+
+export { makeTerm, makeQuestion, makeAnswer };

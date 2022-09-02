@@ -7,9 +7,8 @@ const RelatedLinksBar = ({ selectedTerm, setSelectedTerm, terms }) => {
     <div
       className="divColumn"
       style={{
-        width: "100%",
+        width: "50%",
         marginTop: "10px",
-        borderTop: "1px dotted white",
       }}
     >
       <div className="textBoldWhite">Themenverwandte Begriffe</div>

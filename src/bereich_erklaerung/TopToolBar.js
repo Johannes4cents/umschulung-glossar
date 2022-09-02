@@ -1,8 +1,10 @@
 import React from "react";
+import HoverImage from "../components/HoverImage";
 import useModal from "../hooks/useModal";
 import { deleteDocInFirestore } from "../misc/handleFirestore";
 import ConfirmationModal from "../modals/ConfirmationModal";
 import useOnHover from "../modals/useOnHover";
+import AskQuestionModal from "../QuestionAndAnswers/AskQuestionModal";
 import miscStore from "../stores/miscStore";
 
 const TopToolBar = ({ selectedTerm, setSelectedTerm, modal }) => {
@@ -15,6 +17,13 @@ const TopToolBar = ({ selectedTerm, setSelectedTerm, modal }) => {
         onConfirmed={confirmDeletion}
       />
     ),
+  });
+
+  const questionModal = useModal({
+    password: "askQuestion",
+    modalContent: <AskQuestionModal term={selectedTerm} />,
+    position: "bottomLeft",
+    translate: { x: 0, y: 0 },
   });
   function openEdit() {
     if (selectedTerm != null) {
@@ -32,6 +41,10 @@ const TopToolBar = ({ selectedTerm, setSelectedTerm, modal }) => {
         setSelectedTerm(null);
       });
     }
+  }
+
+  function askQuestion() {
+    questionModal.open("askQuestion");
   }
   return (
     <div
@@ -54,8 +67,14 @@ const TopToolBar = ({ selectedTerm, setSelectedTerm, modal }) => {
         onClick={openEdit}
         description={"Eintrag Bearbeiten"}
       />
+      <HoverImage
+        imgUrl={"/images/icons/icon_question.png"}
+        onClick={askQuestion}
+        description={"Frage Stellen"}
+      />
       <AuthorField selectedTerm={selectedTerm} />
       {confModal.element}
+      {questionModal.element}
     </div>
   );
 };
@@ -67,16 +86,6 @@ const AuthorField = ({ selectedTerm }) => {
         Author
       </div>
       <div className="textWhite">{selectedTerm.author ?? "Unknown"}</div>
-    </div>
-  );
-};
-
-const HoverImage = ({ imgUrl, onClick, description }) => {
-  const hover = useOnHover({ item: imgUrl, hoverDescription: description });
-  return (
-    <div {...hover.divProps}>
-      <img src={imgUrl} className="icon25" onClick={onClick} />
-      {hover.hoverDescription}
     </div>
   );
 };

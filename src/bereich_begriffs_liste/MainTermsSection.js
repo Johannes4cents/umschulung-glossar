@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import SearchBar from "../components/SearchBar";
-import useModal from "../hooks/useModal";
+import { forArrayLength } from "../misc/helperFuncs";
 import { makeTerm } from "../misc/makeObjects";
-import TermEditModal from "../modals/TermEditModal";
 import miscStore from "../stores/miscStore";
 import CatsListTerms from "./CatsListTerms";
+import { toast } from "react-toastify";
 import TermList from "./TermList";
 
 const MainTermsSection = ({
@@ -34,14 +33,34 @@ const MainTermsSection = ({
   };
   const { setTermPayload, loggedIn, info } = miscStore();
 
-  function openTermModal() {
-    if (searchInput.length > 2 && displayedTerms.length < 1) {
-      modal.open("newTerm");
-      setTermPayload({
-        from: "new",
-        openTerm: makeTerm(searchInput, selectedCats, info.username),
+  function findExistingEntry(search) {
+    let nameList = [];
+    forArrayLength(terms, (term) => {
+      nameList.push({ string: term.name.toLowerCase(), term: term });
+      forArrayLength(term.aliases, (alias) => {
+        nameList.push({ string: alias.toLowerCase(), term: term });
       });
-      setSearchInput("");
+    });
+    console.log("nameList -", nameList, " | search - ", search);
+    return nameList.find((obj) => obj.string == search.toLowerCase());
+  }
+
+  function openTermModal() {
+    if (searchInput.length > 2) {
+      let entry = findExistingEntry(searchInput);
+      console.log("foundEntry - ", entry);
+      if (entry == null) {
+        modal.open("newTerm");
+        setTermPayload({
+          from: "new",
+          openTerm: makeTerm(searchInput, [], info.username),
+        });
+        setSearchInput("");
+      } else
+        toast(
+          `Es gibt Bereits den Eintrag ${entry.term.name} für diesen Begriff`,
+          { position: toast.POSITION.TOP_LEFT, autoClose: 1000 }
+        );
     }
   }
 
@@ -59,7 +78,9 @@ const MainTermsSection = ({
 
   function onTermClicked(term) {
     console.log("term clicked - ", term);
-    setSelectedTerm(term);
+
+    if ((selectedTerm ?? { id: "noting" }).id != term.id) setSelectedTerm(term);
+    else setSelectedTerm(null);
   }
 
   return (

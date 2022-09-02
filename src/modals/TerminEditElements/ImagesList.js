@@ -17,7 +17,7 @@ const ImagesList = ({ openTerm, setOpenTerm }) => {
   };
 
   return (
-    <div className="divColumn" style={{ height: "50%", overflow: "auto" }}>
+    <div className="divColumn" style={{ height: "35%", overflow: "auto" }}>
       <div className="textBoldWhite">Images</div>
       <div className="divColumn" style={{ overflow: "auto" }}>
         {openTerm.images.map((imgUrl) => (
