@@ -21,6 +21,7 @@ import { EditorState, convertFromRaw } from "draft-js";
 
 const TermEditModal = ({ setSelectedTerm, terms }) => {
   const [openTerm, setOpenTerm] = useState(makeTerm());
+  const [oldTerm, setOldterm] = useState(null);
   const [newAlias, setNewAlias] = useState("");
   const refNameInput = useRef(null);
   const refEditor = useRef(null);
@@ -38,7 +39,14 @@ const TermEditModal = ({ setSelectedTerm, terms }) => {
   );
 
   useEffect(() => {
+    console.log("termPayload - ", termPayload);
     if (termPayload != null) {
+      if (termPayload.from == "edit") {
+        setOldterm({
+          term: { ...termPayload.openTerm },
+          author: termPayload.openTerm.author ?? "unknown",
+        });
+      }
       setOpenTerm(termPayload.openTerm);
       setFrom(termPayload.from);
     }
@@ -64,8 +72,15 @@ const TermEditModal = ({ setSelectedTerm, terms }) => {
       closeModal();
       console.log("termSaved");
     }
-    console.log("openTerm saving - ", openTerm);
-    setDocInFirestore("terms", openTerm.id, openTerm, closeAfterSave);
+    var newTerm = { ...openTerm };
+    if (oldTerm != null) {
+      console.log("oldTerm != null");
+      newTerm.editHistory = [...(newTerm.editHistory ?? []), oldTerm];
+      newTerm.lastEditor = info.username;
+      newTerm.author = newTerm.author ?? "unknown";
+    }
+    console.log("newTerm - ", newTerm);
+    setDocInFirestore("terms", newTerm.id, newTerm, closeAfterSave);
     setSelectedTerm(openTerm);
   }
 
