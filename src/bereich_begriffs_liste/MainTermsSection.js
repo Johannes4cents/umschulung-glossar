@@ -65,7 +65,11 @@ const MainTermsSection = ({
             `Es gibt Bereits den Eintrag ${entry.term.name} für diesen Begriff`,
             { position: toast.POSITION.TOP_LEFT, autoClose: 1000 }
           );
-      }
+      } else
+        toast(`Bitte Erst den namen des neuen Begriffes im Suchfeld eingeben`, {
+          position: toast.POSITION.TOP_LEFT,
+          autoClose: 4000,
+        });
     } else
       toast(`Bitte Einloggen um neue Einträge zu erstellen`, {
         position: toast.POSITION.TOP_LEFT,
@@ -86,8 +90,6 @@ const MainTermsSection = ({
   }
 
   function onTermClicked(term) {
-    console.log("term clicked - ", term);
-
     if ((selectedTerm ?? { id: "noting" }).id != term.id) setSelectedTerm(term);
     else setSelectedTerm(null);
   }
