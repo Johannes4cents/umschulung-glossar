@@ -34,6 +34,7 @@ const DraftEditor = ({
 
   return (
     <Editor
+      editorStyle={{ maxHeight: "300px" }}
       ref={refEditor}
       editorState={editorState}
       toolbarClassName="draftToolbar"

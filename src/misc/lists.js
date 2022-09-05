@@ -13,6 +13,7 @@ const catList = [
   cat("coding", imgStem("coding")),
   cat("kaufmännisch", imgStem("kaufmann")),
   cat("C#", imgStem("csharp")),
+  cat("other", imgStem("answerquestions")),
 ];
 
 export { catList };

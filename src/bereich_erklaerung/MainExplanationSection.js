@@ -94,7 +94,7 @@ const MainExplanationSection = ({
 
 const DefinitionField = ({ selectedTerm }) => {
   return (
-    <div className="divColumn">
+    <div className="divColumn" style={{ maxHeight: "300px", overflow: "auto" }}>
       <div className="textBoldWhite">{parse(selectedTerm.content ?? "")}</div>
     </div>
   );
