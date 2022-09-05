@@ -92,18 +92,31 @@ const SignUpWithEMailModal = () => {
   }
 
   function createNewUser(uid) {
-    let newUser = {
-      uid,
-      email: user.email,
-      password: user.password,
-      username: user.username,
-    };
-    setDocInFirestore("users", uid, newUser, () => {
-      localStorage.setItem("info", JSON.stringify(newUser));
-      setInfo(newUser);
-      setUser({ email: "", password: "", username: "" });
-      closeModal();
-    });
+    if (user.password.length < 3)
+      toast("password must be at least 4 characters long");
+    else if (user.username.length < 2)
+      toast("username must at least 3 Characters long");
+    else {
+      let newUser = {
+        uid,
+        email: user.email,
+        password: user.password,
+        username: user.username,
+        createdEntries: [],
+        editedEntries: [],
+        addedLinks: [],
+        askedQuestions: [],
+        answeredQuestions: [],
+        topAnswerQuestions: [],
+        score: 1,
+      };
+      setDocInFirestore("users", uid, newUser, () => {
+        localStorage.setItem("info", JSON.stringify(newUser));
+        setInfo(newUser);
+        setUser({ email: "", password: "", username: "" });
+        closeModal();
+      });
+    }
   }
 
   async function signUp() {

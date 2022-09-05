@@ -11,6 +11,7 @@ import miscStore from "./stores/miscStore";
 import "react-toastify/dist/ReactToastify.css";
 import ClickedImageContainer from "./components/ClickedImageContainer";
 import MainNuetzlicheLinks from "./bereich_begriffs_liste/nuetzlicheLinks/MainNuetzlicheLinks";
+import PageTopBar from "./components/PageTopBar";
 
 function App() {
   const [selectedTerm, setSelectedTerm] = useState(null);
@@ -69,14 +70,6 @@ function App() {
     };
   }, []);
 
-  const loginModal = useModal({
-    password: "signupModal",
-    modalContent: <SignUpWithEMailModal />,
-    offsetY: 10,
-    translate: { x: 100, y: 0 },
-    position: "bottomLeft",
-  });
-
   const modal = useModal({
     password: "newTerm",
     position: "bottomLeft",
@@ -99,40 +92,7 @@ function App() {
         className="divColumn"
         style={{ width: "100%", justifyContent: "center", marginTop: "10px" }}
       >
-        <div
-          className="divRow"
-          style={{ width: "100%", justifyContent: "center" }}
-        >
-          <div style={{ flex: 1 }}></div>
-          <div className="textBoldWhite" style={{ fontSize: "20px" }}>
-            Begleitendes Glossar zur Umschulung zum Fachinformatiker im Bereich
-            Anwendungsentwicklung
-          </div>
-          <div
-            onClick={() => {
-              console.log("info - ", info);
-            }}
-            className="divRow"
-            style={{ flex: 1, justifyContent: "end", marginRight: "5px" }}
-          >
-            <div style={{ marginRight: "20px" }}>
-              {!loggedIn && (
-                <img
-                  style={{ alignSelf: "end" }}
-                  className="icon40"
-                  src="/images/icons/btn_password_sign_in.png"
-                  onClick={() => loginModal.open("signupModal")}
-                />
-              )}
-              {loggedIn && (
-                <div className="divColumn">
-                  <div className="textWhite">Logged in as</div>
-                  <div className="textBoldWhite">{info.username}</div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
+        <PageTopBar />
       </div>
       <div
         className="divRow"
@@ -176,7 +136,7 @@ function App() {
         />
       </div>
       {modal.element}
-      {loginModal.element}
+
       <ToastContainer />
     </div>
   );

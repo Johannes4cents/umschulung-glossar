@@ -8,7 +8,7 @@ const ExternalLinksSection = ({ selectedTerm, links, terms }) => {
 
   useEffect(() => {
     setDisplayedLinks(links.filter((l) => l.terms.includes(selectedTerm.id)));
-  }, [selectedTerm]);
+  }, [selectedTerm, links]);
   return (
     <div
       className="divColumn"

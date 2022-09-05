@@ -16,7 +16,7 @@ const ExternalLinksList = ({
 
   function removeLink(link) {
     setAddedLinks(
-      addedLinks.map((l) => newTrim(l).filter((l) => l != newTrim(link.url)))
+      addedLinks.map((l) => newTrim(l)).filter((l) => l != newTrim(link.url))
     );
   }
 

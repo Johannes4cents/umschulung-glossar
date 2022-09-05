@@ -12,7 +12,7 @@ const LinkDetailedModal = ({ link, terms }) => {
     password: "editLink",
     modalContent: <NewLinkModal terms={terms} oldLink={link} />,
   });
-  const { closeModal } = miscStore();
+  const { closeModal, loggedIn } = miscStore();
   function editLink() {
     editModal.open("editLink");
   }
@@ -59,25 +59,31 @@ const LinkDetailedModal = ({ link, terms }) => {
           className="divRow"
           style={{ flex: 1, justifyContent: "space-around" }}
         >
-          <HoverImage
-            imgUrl={"/images/icons/icon_trashcan.png"}
-            standardGray={true}
-            maxHeight={20}
-            maxWidth={20}
-            description={"Link löschen"}
-            onClick={deleteLink}
-          />
-          <HoverImage
-            onClick={editLink}
-            imgUrl={"/images/icons/icon_edit.png"}
-            standardGray={true}
-            maxHeight={20}
-            maxWidth={20}
-            description={"Link Bearbeiten"}
-          />
+          {loggedIn && (
+            <div style={{ width: "100%" }}>
+              <HoverImage
+                imgUrl={"/images/icons/icon_trashcan.png"}
+                standardGray={true}
+                maxHeight={20}
+                maxWidth={20}
+                description={"Link löschen"}
+                onClick={deleteLink}
+              />
+              <HoverImage
+                onClick={editLink}
+                imgUrl={"/images/icons/icon_edit.png"}
+                standardGray={true}
+                maxHeight={20}
+                maxWidth={20}
+                description={"Link Bearbeiten"}
+              />
+            </div>
+          )}
+
           {confModal.element}
           {editModal.element}
         </div>
+        )
         <div
           className="textBoldWhite"
           onClick={() => {

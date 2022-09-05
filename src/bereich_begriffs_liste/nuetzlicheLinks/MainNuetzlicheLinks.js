@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import HoverImage from "../../components/HoverImage";
-import SearchBar from "../../components/SearchBar";
 import useModal from "../../hooks/useModal";
+import miscStore from "../../stores/miscStore";
 import LinkResultBar from "./LinkResultBar";
-import LinksHolder from "./LinksHolder";
 import NewLinkModal from "./NewLinkModal";
+import { toast } from "react-toastify";
 
 const MainNuetzlicheLinks = ({
   displayedLinks,
@@ -14,6 +14,7 @@ const MainNuetzlicheLinks = ({
   terms,
 }) => {
   const [search, setSearch] = useState("");
+  const { loggedIn } = miscStore();
   function onSearch(searchInput) {
     const foundLinks =
       searchInput.length > 0
@@ -46,6 +47,17 @@ const MainNuetzlicheLinks = ({
     );
   }, [selectedCats]);
 
+  function openNewLinkModal() {
+    if (loggedIn) {
+      modal.open("openNewLink");
+    } else {
+      toast(`Bitte Einloggen um neue Einträge zu erstellen`, {
+        position: toast.POSITION.TOP_LEFT,
+        autoClose: 2000,
+      });
+    }
+  }
+
   const modal = useModal({
     position: "topRight",
     translate: { x: 100, y: 100 },
@@ -57,7 +69,7 @@ const MainNuetzlicheLinks = ({
       <div className="textBoldWhite">Nützliche Links</div>
       <HoverImage
         onClick={() => {
-          modal.open("openNewLink");
+          openNewLinkModal();
         }}
         imgUrl={"images/icons/icon_link_new.png"}
         standardGray={true}

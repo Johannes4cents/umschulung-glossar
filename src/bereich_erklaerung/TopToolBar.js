@@ -8,7 +8,7 @@ import AskQuestionModal from "../QuestionAndAnswers/AskQuestionModal";
 import miscStore from "../stores/miscStore";
 
 const TopToolBar = ({ selectedTerm, setSelectedTerm, modal }) => {
-  const { setTermPayload } = miscStore();
+  const { setTermPayload, loggedIn } = miscStore();
   const confModal = useModal({
     password: "deleteEntry",
     modalContent: (
@@ -55,25 +55,39 @@ const TopToolBar = ({ selectedTerm, setSelectedTerm, modal }) => {
         marginBottom: "5px",
       }}
     >
-      <HoverImage
-        imgUrl={"/images/icons/icon_trashcan.png"}
-        onClick={() => {
-          confModal.open("deleteEntry");
-        }}
-        description={"Eintrag Löschen"}
-      />
-      <HoverImage
-        imgUrl={"/images/icons/icon_edit.png"}
-        onClick={openEdit}
-        description={"Eintrag Bearbeiten"}
-      />
-      <HoverImage
-        imgUrl={"/images/icons/icon_question.png"}
-        onClick={askQuestion}
-        description={"Frage Stellen"}
-      />
-      <AuthorField selectedTerm={selectedTerm} />
-      <AuthorField selectedTerm={selectedTerm} lastEdit={true} />
+      {loggedIn && (
+        <div
+          className="divRow"
+          style={{ flex: 2, justifyContent: "space-around" }}
+        >
+          <HoverImage
+            imgUrl={"/images/icons/icon_trashcan.png"}
+            onClick={() => {
+              confModal.open("deleteEntry");
+            }}
+            description={"Eintrag Löschen"}
+          />
+          <HoverImage
+            imgUrl={"/images/icons/icon_edit.png"}
+            onClick={openEdit}
+            description={"Eintrag Bearbeiten"}
+          />
+          <HoverImage
+            imgUrl={"/images/icons/icon_question.png"}
+            onClick={askQuestion}
+            description={"Frage Stellen"}
+          />
+        </div>
+      )}
+
+      <div
+        className="divRow"
+        style={{ flex: 1, justifyContent: "space-around" }}
+      >
+        <AuthorField selectedTerm={selectedTerm} />
+        <AuthorField selectedTerm={selectedTerm} lastEdit={true} />
+      </div>
+
       {confModal.element}
       {questionModal.element}
     </div>
