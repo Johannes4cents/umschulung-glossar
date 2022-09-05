@@ -7,6 +7,7 @@ import AttachedFilesBar from "./AttachedFilesBar";
 import QuestionsBar from "./fragen/QuestionsBar";
 import useModal from "../hooks/useModal";
 import ViewImagesModal from "../modals/ViewImagesModal";
+import ExternalLinksSection from "./ExternalLinksSection";
 
 const MainExplanationSection = ({
   selectedTerm,
@@ -14,6 +15,7 @@ const MainExplanationSection = ({
   editModal,
   terms,
   questions,
+  links,
 }) => {
   return (
     <div className="divColumn" style={{ height: "100%", width: "700px" }}>
@@ -78,6 +80,11 @@ const MainExplanationSection = ({
             selectedTerm={selectedTerm}
             setSelectedTerm={setSelectedTerm}
             questions={questions}
+          />
+          <ExternalLinksSection
+            selectedTerm={selectedTerm}
+            links={links}
+            terms={terms}
           />
         </div>
       )}

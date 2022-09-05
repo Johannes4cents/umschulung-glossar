@@ -164,6 +164,7 @@ function App() {
           selectedTerm={selectedTerm}
           setSelectedTerm={setSelectedTerm}
           questions={questions}
+          links={links}
         />
       </div>
       {modal.element}

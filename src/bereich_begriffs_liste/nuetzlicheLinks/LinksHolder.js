@@ -8,7 +8,7 @@ import useOnHover from "../../modals/useOnHover";
 import LinkDetailedModal from "./LinkDetailedModal";
 
 const LinksHolder = ({ link, terms }) => {
-  const hover = useOnHover({ item: link });
+  const hover = useOnHover({ item: link, unselectedTextColor: "#ddddff" });
   const [fullCats, setFullCats] = useState([]);
   const modal = useModal({
     translate: { x: 0, y: 0 },
