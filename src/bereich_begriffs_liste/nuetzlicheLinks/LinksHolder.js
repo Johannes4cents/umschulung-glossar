@@ -28,13 +28,13 @@ const LinksHolder = ({ link }) => {
         paddingBottoM: "3px",
         borderBottom: "1px dotted grey",
       }}
-      onClick={() => {
-        modal.open(`open${link.url}`);
-      }}
     >
       <img src="Images/icons/icon_web_link.png" className="icon20" />
       <div
         className="textWhite"
+        onClick={() => {
+          modal.open(`open${link.url}`);
+        }}
         style={{ flex: 1, textAlign: "center", color: hover.textColor }}
       >
         {link.searchTerms[0]}
