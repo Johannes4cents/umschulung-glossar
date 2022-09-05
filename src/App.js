@@ -109,20 +109,22 @@ function App() {
             className="divRow"
             style={{ flex: 1, justifyContent: "end", marginRight: "5px" }}
           >
-            {!loggedIn && (
-              <img
-                style={{ alignSelf: "end" }}
-                className="icon40"
-                src="/images/icons/btn_password_sign_in.png"
-                onClick={() => loginModal.open("signupModal")}
-              />
-            )}
-            {loggedIn && (
-              <div className="divColumn">
-                <div className="textWhite">Logged in as</div>
-                <div className="textBoldWhite">{info.username}</div>
-              </div>
-            )}
+            <div style={{ marginRight: "20px" }}>
+              {!loggedIn && (
+                <img
+                  style={{ alignSelf: "end" }}
+                  className="icon40"
+                  src="/images/icons/btn_password_sign_in.png"
+                  onClick={() => loginModal.open("signupModal")}
+                />
+              )}
+              {loggedIn && (
+                <div className="divColumn">
+                  <div className="textWhite">Logged in as</div>
+                  <div className="textBoldWhite">{info.username}</div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
