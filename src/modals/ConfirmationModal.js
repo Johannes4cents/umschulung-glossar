@@ -4,7 +4,15 @@ import miscStore from "../stores/miscStore";
 const ConfirmationModal = ({ text, onConfirmed }) => {
   const { closeModal } = miscStore();
   return (
-    <div className="divColumn" style={{ backgroundColor: "#4f4f4f" }}>
+    <div
+      className="divColumn"
+      style={{
+        backgroundColor: "#4f4f4f",
+        padding: "4px",
+        border: "1px solid lightgrey",
+        borderRadius: "1rem/1rem",
+      }}
+    >
       <div className="textBoldWhite">{text}</div>
       <div
         className="divRow"

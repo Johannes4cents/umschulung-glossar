@@ -7,13 +7,13 @@ import { catList } from "../../misc/lists";
 import useOnHover from "../../modals/useOnHover";
 import LinkDetailedModal from "./LinkDetailedModal";
 
-const LinksHolder = ({ link }) => {
+const LinksHolder = ({ link, terms }) => {
   const hover = useOnHover({ item: link });
   const [fullCats, setFullCats] = useState([]);
   const modal = useModal({
     translate: { x: 0, y: 0 },
     password: `open${link.url}`,
-    modalContent: <LinkDetailedModal link={link} />,
+    modalContent: <LinkDetailedModal link={link} terms={terms} />,
   });
 
   useEffect(() => {

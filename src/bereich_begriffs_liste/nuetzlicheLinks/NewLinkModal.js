@@ -5,6 +5,7 @@ import {
   addRemoveItem,
   extractCatsFromTerms,
   getItemById,
+  newTrim,
 } from "../../misc/helperFuncs";
 import { makeLink } from "../../misc/makeObjects";
 import PickLinksModal from "../../modals/PickLinksModal";
@@ -14,9 +15,8 @@ import miscStore from "../../stores/miscStore";
 import { setDocInFirestore } from "../../misc/handleFirestore";
 import useModal from "../../hooks/useModal";
 
-const NewLinkModal = ({ terms }) => {
-  const [newLink, setNewLink] = useState(makeLink());
-  const chageLink = (value, key) => {};
+const NewLinkModal = ({ terms, oldLink }) => {
+  const [newLink, setNewLink] = useState(oldLink ?? makeLink());
   const { closeModal } = miscStore();
   const [filled, setFilled] = useState(false);
   const newSearchTermRef = useRef();
@@ -49,9 +49,12 @@ const NewLinkModal = ({ terms }) => {
   }
 
   function saveLink() {
-    console.log("newLink - ", newLink);
     if (filled) {
-      setDocInFirestore("links", newLink.url, newLink, () => {
+      if (!newLink.url.startsWith("http"))
+        newLink.url = "https://" + newLink.url;
+
+      console.log("newLink - ", newLink);
+      setDocInFirestore("links", newTrim(newLink.url), newLink, () => {
         toast("Neuer Link gespeichert");
         closeModal();
       });

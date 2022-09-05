@@ -81,7 +81,7 @@ const MainNuetzlicheLinks = ({
         style={{ width: "100%", maxHeight: "300px", overflow: "auto" }}
       >
         {displayedLinks.map((l) => (
-          <LinksHolder key={l.url} link={l} />
+          <LinksHolder key={l.url} link={l} terms={terms} />
         ))}
       </div>
       {modal.element}
