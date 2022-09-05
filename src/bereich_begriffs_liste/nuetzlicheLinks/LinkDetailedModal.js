@@ -43,11 +43,28 @@ const LinkDetailedModal = ({ link }) => {
         </div>
         <div
           className="textBoldWhite"
+          onClick={() => {
+            console.log("Link - ", link);
+          }}
           style={{ marginBottom: "5px", flex: 2, textAlign: "center" }}
         >
           Link Detailiert
         </div>
         <div style={{ flex: 1 }} />
+      </div>
+
+      <div className="divColumn" style={{ width: "100%", marginBottom: "5px" }}>
+        <div className="textWhiteSmall" style={{ color: "grey" }}>
+          Link
+        </div>
+        <a
+          href={link.url}
+          target="_blank"
+          rel="noreferrer noopener"
+          style={{ color: "turquoise" }}
+        >
+          {link.url}
+        </a>
       </div>
 
       <div className="textWhite" style={{ color: "grey" }}>
