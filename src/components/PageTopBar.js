@@ -3,6 +3,8 @@ import { user } from "../firebase/fireInit";
 import useModal from "../hooks/useModal";
 import SignUpWithEMailModal from "../modals/SignUpWithEmailModal";
 import miscStore from "../stores/miscStore";
+import ProfileButton from "./ProfileButton";
+import SignOutButton from "./SignOutButton";
 
 const PageTopBar = () => {
   const { loggedIn, info, setInfo } = miscStore();
@@ -45,15 +47,10 @@ const PageTopBar = () => {
           )}
           {loggedIn && (
             <div className="divColumn">
-              <div className="textWhite">Logged in as</div>
-              <div className="textBoldWhite">{info.username}</div>
-              <div
-                className="textWhiteSmall"
-                style={{ color: "turquoise" }}
-                onClick={signOut}
-              >
-                Sign Out
-              </div>
+              {" "}
+              <ProfileButton />
+              <div style={{ marginBottom: "3px" }} />
+              <SignOutButton signOut={signOut} />
             </div>
           )}
         </div>

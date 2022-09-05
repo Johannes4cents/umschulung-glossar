@@ -92,11 +92,13 @@ const SignUpWithEMailModal = () => {
   }
 
   function createNewUser(uid) {
-    if (user.password.length < 3)
+    if (user.password.length < 3) {
       toast("password must be at least 4 characters long");
-    else if (user.username.length < 2)
+      setSwitching(false);
+    } else if (user.username.length < 2) {
       toast("username must at least 3 Characters long");
-    else {
+      setSwitching(false);
+    } else {
       let newUser = {
         uid,
         email: user.email,
@@ -120,9 +122,7 @@ const SignUpWithEMailModal = () => {
   }
 
   async function signUp() {
-    console.log("test 1");
     if (user.email.length > 3 && user.password.length > 3) {
-      console.log("test 2");
       queryCollection(
         "users",
         "username",
@@ -133,14 +133,22 @@ const SignUpWithEMailModal = () => {
           if (result.length < 1) {
             setSwitching(true);
             const auth = getAuth();
-            createUserWithEmailAndPassword(auth, user.email, user.password)
-              .then((userCredential) => {
-                const fireUser = userCredential.user.uid;
-                createNewUser(fireUser);
-              })
-              .catch((error) => {
-                setSwitching(false);
-              });
+            if (user.email.length < 4) {
+              toast("not valid email");
+            } else if (user.username.length < 2)
+              toast("username must be at least 3 characters long");
+            else if (user.password.length < 3)
+              toast("password must be at least 4 characters long");
+            else {
+              createUserWithEmailAndPassword(auth, user.email, user.password)
+                .then((userCredential) => {
+                  const fireUser = userCredential.user.uid;
+                  createNewUser(fireUser);
+                })
+                .catch((error) => {
+                  setSwitching(false);
+                });
+            }
           } else toast("username already taken");
         }
       );
