@@ -11,6 +11,7 @@ const LinksHolder = ({ link }) => {
   const hover = useOnHover({ item: link });
   const [fullCats, setFullCats] = useState([]);
   const modal = useModal({
+    translate: { x: 0, y: 0 },
     password: `open${link.url}`,
     modalContent: <LinkDetailedModal link={link} />,
   });
