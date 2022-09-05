@@ -3,10 +3,6 @@ import miscStore from "../stores/miscStore";
 
 const ImagePreview = ({ image, deleteImage, term, size = 50 }) => {
   const { setClickedImages } = miscStore();
-
-  useEffect(() => {
-    console.log("imagePreview Term - ", term);
-  }, [term]);
   return (
     <div className="divRow">
       <div className="divRow" style={{ marginRight: "5px" }}>

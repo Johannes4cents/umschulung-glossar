@@ -18,7 +18,9 @@ function App() {
   const [searchInput, setSearchInput] = useState("");
   const [displayedTerms, setDisplayedterms] = useState([]);
   const [questions, setQuestions] = useState([]);
-  const [linkList, setLinkList] = useState([]);
+  const [displayedLinks, setDisplayedLinks] = useState([]);
+  const [links, setLinks] = useState([]);
+
   const { setInfo, loggedIn, info } = miscStore();
 
   useEffect(() => {
@@ -27,6 +29,10 @@ function App() {
       unsub = unsubscribe;
       setQuestions(list);
     });
+
+    return () => {
+      if (unsub) unsub();
+    };
   }, []);
 
   function checkUserStartup() {
@@ -44,13 +50,21 @@ function App() {
 
   useEffect(() => {
     var unsub = null;
+    var unsubLinks = null;
     getCollectionListener("terms", (list, unsubscribe) => {
       setTerms(list);
       setDisplayedterms(list);
       unsub = unsubscribe;
     });
+
+    getCollectionListener("links", (list, unsubscribe) => {
+      setLinks(list ?? []);
+      setDisplayedLinks(list ?? []);
+      unsubLinks = unsubscribe;
+    });
+
     return () => {
-      if (unsub) unsub();
+      if (unsubLinks) unsubLinks();
     };
   }, []);
 
@@ -130,6 +144,9 @@ function App() {
           setSelectedCats={setSelectedCats}
           searchInput={searchInput}
           setSearchInput={setSearchInput}
+          links={links}
+          setDisplayedLinks={setDisplayedLinks}
+          displayedLinks={displayedLinks}
           modal={modal}
         />
         <MainExplanationSection
@@ -142,7 +159,7 @@ function App() {
       </div>
       {modal.element}
       {loginModal.element}
-      <ToastContainer linkList={linkList} setLinkList={setLinkList} />
+      <ToastContainer />
     </div>
   );
 }

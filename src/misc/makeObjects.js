@@ -1,4 +1,4 @@
-import { getRandomId } from "./helperFuncs";
+import { forArrayLength, getRandomId } from "./helperFuncs";
 
 function makeTerm(name, cats, author) {
   return {
@@ -40,4 +40,13 @@ function makeAnswer(author, questionId) {
   };
 }
 
-export { makeTerm, makeQuestion, makeAnswer };
+function makeLink(searchTerms, url, terms, cats) {
+  return {
+    searchTerms: searchTerms ?? [],
+    url: url ?? "",
+    terms: terms ?? [],
+    cats: cats ?? [],
+  };
+}
+
+export { makeTerm, makeQuestion, makeAnswer, makeLink };

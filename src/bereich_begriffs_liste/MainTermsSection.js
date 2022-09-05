@@ -16,6 +16,9 @@ const MainTermsSection = ({
   setSearchInput,
   displayedTerms,
   setDisplayedterms,
+  displayedLinks,
+  setDisplayedLinks,
+  links,
   terms,
   modal,
 }) => {
@@ -141,7 +144,12 @@ const MainTermsSection = ({
         selectedFilter={checkmarkTest}
         selectedCats={selectedCats}
       />
-      <MainNuetzlicheLinks />
+      <MainNuetzlicheLinks
+        displayedLinks={displayedLinks}
+        setDisplayedLinks={setDisplayedLinks}
+        links={links}
+        terms={terms}
+      />
     </div>
   );
 };

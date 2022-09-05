@@ -284,6 +284,24 @@ const TermEditModal = ({ setSelectedTerm, terms }) => {
       });
   }
 
+  function onPickedTermClicked(term) {
+    console.log(
+      "clickedTerm  - ",
+      term,
+      " |openTerm.linked - ",
+      openTerm.linked,
+      " |openTerm.linked.includes(term.id) - ",
+      openTerm.linked.includes(term.id)
+    );
+    if (openTerm.linked.includes(term.id)) {
+      console.log("id is included");
+      setOpenTerm({
+        ...openTerm,
+        linked: openTerm.linked.filter((id) => id != term.id),
+      });
+    } else setOpenTerm({ ...openTerm, linked: [...openTerm.linked, term.id] });
+  }
+
   return (
     <DragDropDiv
       handleDrop={handleDrop}
@@ -300,9 +318,9 @@ const TermEditModal = ({ setSelectedTerm, terms }) => {
       <div className="divRow" style={{ height: "100%", alignItems: "end" }}>
         {pickLinksOpen && (
           <PickLinksModal
+            onPickedTermClicked={onPickedTermClicked}
             terms={terms}
-            openTerm={openTerm}
-            setOpenTerm={setOpenTerm}
+            inclusionList={openTerm.linked}
           />
         )}
         <div

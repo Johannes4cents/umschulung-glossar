@@ -425,7 +425,19 @@ function getComparissonScore(userId, comparissons) {
   return null;
 }
 
+function extractCatsFromTerms(terms) {
+  console.log("terms - ", terms);
+  const cats = [];
+  forArrayLength(terms ?? [], (term) => {
+    forArrayLength(term.cats, (cat) => {
+      if (!cats.includes(cat)) cats.push(cat);
+    });
+  });
+  return cats;
+}
+
 export {
+  extractCatsFromTerms,
   getComparissonScore,
   compareUser,
   makeHoverOption,

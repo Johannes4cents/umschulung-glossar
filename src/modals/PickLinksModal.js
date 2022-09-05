@@ -2,7 +2,13 @@ import React, { useEffect, useState } from "react";
 import TermList from "../bereich_begriffs_liste/TermList";
 import { catList } from "../misc/lists";
 
-const PickLinksModal = ({ terms, openTerm, setOpenTerm }) => {
+const PickLinksModal = ({
+  terms,
+  inclusionList,
+  onPickedTermClicked,
+  maxHeight = 300,
+  headerColor = "white",
+}) => {
   const [displayedTerms, setDisplayedTerms] = useState([]);
   const [searchInput, setSearchInput] = useState("");
 
@@ -24,27 +30,11 @@ const PickLinksModal = ({ terms, openTerm, setOpenTerm }) => {
     } else setDisplayedTerms(terms);
   }
 
-  function onTermClicked(term) {
-    console.log(
-      "clickedTerm  - ",
-      term,
-      " |openTerm.linked - ",
-      openTerm.linked,
-      " |openTerm.linked.includes(term.id) - ",
-      openTerm.linked.includes(term.id)
-    );
-    if (openTerm.linked.includes(term.id)) {
-      console.log("id is included");
-      setOpenTerm({
-        ...openTerm,
-        linked: openTerm.linked.filter((id) => id != term.id),
-      });
-    } else setOpenTerm({ ...openTerm, linked: [...openTerm.linked, term.id] });
-  }
-
   return (
     <div className="divColumn">
-      <div className="textBoldWhite">Themenverwandte Begriffe</div>
+      <div className="textBoldWhite" style={{ color: headerColor }}>
+        Themenverwandte Begriffe
+      </div>
       <div className="divRow">
         <input
           style={{ textAlign: "center", marginTop: "5px" }}
@@ -56,10 +46,11 @@ const PickLinksModal = ({ terms, openTerm, setOpenTerm }) => {
         <img src="/images/drawable/icon_search.png" className="icon25" />
       </div>
       <TermList
+        maxHeight={maxHeight}
         selectedCats={catList.map((c) => c.id)}
         displayedTerms={displayedTerms}
-        onTermClicked={onTermClicked}
-        inclusionList={openTerm.linked}
+        onTermClicked={onPickedTermClicked}
+        inclusionList={inclusionList}
       />
     </div>
   );
