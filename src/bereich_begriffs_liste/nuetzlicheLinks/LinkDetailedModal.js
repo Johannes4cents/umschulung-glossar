@@ -44,7 +44,7 @@ const LinkDetailedModal = ({ link, terms }) => {
     <div
       className="divColumn"
       style={{
-        width: "300px",
+        minWidth: "300px",
         backgroundColor: "#4f4f4f",
         padding: "5px",
         border: "1px solid white",

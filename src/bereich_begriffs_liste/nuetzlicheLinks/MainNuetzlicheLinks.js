@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import HoverImage from "../../components/HoverImage";
 import SearchBar from "../../components/SearchBar";
 import useModal from "../../hooks/useModal";
+import LinkResultBar from "./LinkResultBar";
 import LinksHolder from "./LinksHolder";
 import NewLinkModal from "./NewLinkModal";
 
@@ -76,14 +77,7 @@ const MainNuetzlicheLinks = ({
 
         <img src="/images/drawable/icon_search.png" className="icon25" />
       </div>
-      <div
-        className="divColumn"
-        style={{ width: "100%", maxHeight: "300px", overflow: "auto" }}
-      >
-        {displayedLinks.map((l) => (
-          <LinksHolder key={l.url} link={l} terms={terms} />
-        ))}
-      </div>
+      <LinkResultBar displayedLinks={displayedLinks} terms={terms} />
       {modal.element}
     </div>
   );

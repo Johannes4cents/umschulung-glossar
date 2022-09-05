@@ -14,13 +14,30 @@ import { toast } from "react-toastify";
 import miscStore from "../../stores/miscStore";
 import { setDocInFirestore } from "../../misc/handleFirestore";
 import useModal from "../../hooks/useModal";
+import AddLinkToTermSection from "./AddLinkToTermSection";
 
-const NewLinkModal = ({ terms, oldLink }) => {
+const NewLinkModal = ({
+  terms,
+  oldLink,
+  term,
+  fromEditTerm = false,
+  displayedLinks,
+  setDisplayedLinks,
+  links,
+  onLinkClicked,
+}) => {
   const [newLink, setNewLink] = useState(oldLink ?? makeLink());
   const { closeModal } = miscStore();
   const [filled, setFilled] = useState(false);
   const newSearchTermRef = useRef();
   const urlInputRef = useRef();
+
+  useEffect(() => {
+    if (term != null) {
+      if (!newLink.terms.includes(term.id))
+        setNewLink({ ...newLink, terms: [...newLink.terms, term.id] });
+    }
+  }, [term]);
 
   useEffect(() => {
     setFilled(newLink.url.length > 5 && newLink.searchTerms.length > 0);
@@ -89,72 +106,86 @@ const NewLinkModal = ({ terms, oldLink }) => {
   }
   return (
     <div
-      className="divColumn"
+      className="divRow"
       style={{
-        width: "550px",
-
         backgroundColor: "#4f4f4f",
         padding: "2px",
         border: "1px solid white",
         borderRadius: "0.5rem/0.5rem",
+        alignItems: "baseline",
       }}
     >
-      <div className="divRow" style={{ width: "100%" }}>
-        <div className="divColumn" style={{ width: "100%" }}>
-          <div className="textBoldWhite" style={{ marginBottom: "5px" }}>
-            Neuen Link eintragen
-          </div>
-          <div className="divRow" style={{ marginBottom: "5px" }}>
-            <div
-              className="textWhite"
-              style={{ color: "grey", marginRight: "5px" }}
-            >
-              URL
-            </div>
-            <input
-              style={{ textAlign: "center" }}
-              value={newLink.url}
-              onKeyDown={onUrlEnter}
-              onChange={(e) => {
-                onURLchange(e.target.value);
-              }}
-              ref={urlInputRef}
-            />
-          </div>
-        </div>
-        <img
-          onClick={saveLink}
-          className="icon40"
-          src="/images/icons/icon_link_new.png"
-          style={{
-            marginRight: "4px",
-            marginTop: "4px",
-            filter: filled ? null : "grayscale(100%)",
-          }}
+      {fromEditTerm && (
+        <AddLinkToTermSection
+          onLinkClicked={onLinkClicked}
+          links={links}
+          setDisplayedLinks={setDisplayedLinks}
+          displayedLinks={displayedLinks}
         />
-      </div>
-
+      )}
       <div
-        className="divRow"
+        className="divColumn"
         style={{
-          width: "100%",
-          justifyContent: "space-around",
-          alignItems: "baseline",
+          width: "550px",
         }}
       >
-        <SearchTermsArea
-          newSearchTermRef={newSearchTermRef}
-          newLink={newLink}
-          onSearchTermClicked={onSearchTermClicked}
-          onSearchTermAdded={onSearchTermAdded}
-        />
-        <PickLinksModal
-          headerColor="grey"
-          terms={terms}
-          inclusionList={newLink.terms}
-          onPickedTermClicked={onPickedTermClicked}
-          maxHeight={100}
-        />
+        <div className="divRow" style={{ width: "100%" }}>
+          <div className="divColumn" style={{ width: "100%" }}>
+            <div className="textBoldWhite" style={{ marginBottom: "5px" }}>
+              Neuen Link eintragen
+            </div>
+            <div className="divRow" style={{ marginBottom: "5px" }}>
+              <div
+                className="textWhite"
+                style={{ color: "grey", marginRight: "5px" }}
+              >
+                URL
+              </div>
+              <input
+                style={{ textAlign: "center" }}
+                value={newLink.url}
+                onKeyDown={onUrlEnter}
+                onChange={(e) => {
+                  onURLchange(e.target.value);
+                }}
+                ref={urlInputRef}
+              />
+            </div>
+          </div>
+          <img
+            onClick={saveLink}
+            className="icon40"
+            src="/images/icons/icon_link_new.png"
+            style={{
+              marginRight: "4px",
+              marginTop: "4px",
+              filter: filled ? null : "grayscale(100%)",
+            }}
+          />
+        </div>
+
+        <div
+          className="divRow"
+          style={{
+            width: "100%",
+            justifyContent: "space-around",
+            alignItems: "baseline",
+          }}
+        >
+          <SearchTermsArea
+            newSearchTermRef={newSearchTermRef}
+            newLink={newLink}
+            onSearchTermClicked={onSearchTermClicked}
+            onSearchTermAdded={onSearchTermAdded}
+          />
+          <PickLinksModal
+            headerColor="grey"
+            terms={terms}
+            inclusionList={newLink.terms}
+            onPickedTermClicked={onPickedTermClicked}
+            maxHeight={100}
+          />
+        </div>
       </div>
     </div>
   );

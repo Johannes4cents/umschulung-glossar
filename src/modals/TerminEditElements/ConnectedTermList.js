@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import SimpleTermHolder from "../../bereich_begriffs_liste/SimpleTermHolder";
 import { getItemById } from "../../misc/helperFuncs";
 
-const LinksList = ({ openTerm, setOpenTerm, terms }) => {
+const ConnectedTermList = ({ openTerm, setOpenTerm, terms }) => {
   const [links, setLinks] = useState([]);
 
   function deleteLink(link) {
@@ -20,7 +20,7 @@ const LinksList = ({ openTerm, setOpenTerm, terms }) => {
       className="divColumn"
       style={{ height: "30%", width: "100%", overflow: "auto" }}
     >
-      <div className="textBoldWhite">Links</div>
+      <div className="textBoldWhite">Verbundene Begriffe</div>
       <div className="divColumn" style={{ overflow: "auto", width: "100%" }}>
         {links.map((l) => (
           <SimpleTermHolder term={l} key={l.id} deleteTerm={deleteLink} />
@@ -30,4 +30,4 @@ const LinksList = ({ openTerm, setOpenTerm, terms }) => {
   );
 };
 
-export default LinksList;
+export default ConnectedTermList;

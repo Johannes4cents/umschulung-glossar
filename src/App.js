@@ -81,7 +81,13 @@ function App() {
     password: "newTerm",
     position: "bottomLeft",
     modalContent: (
-      <TermEditModal setSelectedTerm={setSelectedTerm} terms={terms} />
+      <TermEditModal
+        setSelectedTerm={setSelectedTerm}
+        terms={terms}
+        links={links}
+        displayedLinks={displayedLinks}
+        setDisplayedLinks={setDisplayedLinks}
+      />
     ),
     center: true,
     darkOverlay: true,

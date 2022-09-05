@@ -8,7 +8,13 @@ import {
   setDocInFirestore,
   uploadImageToStorage,
 } from "../misc/handleFirestore";
-import { forArrayLength, getItemById } from "../misc/helperFuncs";
+import {
+  addRemoveItem,
+  checkIfListsTheSame,
+  forArrayLength,
+  getItemById,
+  newTrim,
+} from "../misc/helperFuncs";
 import { makeTerm } from "../misc/makeObjects";
 import miscStore from "../stores/miscStore";
 import PickLinksModal from "./PickLinksModal";
@@ -19,10 +25,18 @@ import TermEditBottomBar from "./TerminEditElements/TermEditBottomBar";
 import DraftEditor from "./TerminEditElements/DraftEditor";
 import { EditorState, convertFromRaw } from "draft-js";
 
-const TermEditModal = ({ setSelectedTerm, terms }) => {
+const TermEditModal = ({
+  setSelectedTerm,
+  terms,
+  links,
+  setDisplayedLinks,
+  displayedLinks,
+}) => {
   const [openTerm, setOpenTerm] = useState(makeTerm());
   const [oldTerm, setOldterm] = useState(null);
   const [newAlias, setNewAlias] = useState("");
+  const [addedLinks, setAddedLinks] = useState([]);
+  const [removedLinks, setRemovedLinks] = useState([]);
   const refNameInput = useRef(null);
   const refEditor = useRef(null);
   const refFileInput = useRef(null);
@@ -38,10 +52,19 @@ const TermEditModal = ({ setSelectedTerm, terms }) => {
       : EditorState.createEmpty()
   );
 
+  function setOldLinks(term) {
+    let linkUrls = links
+      .filter((l) => l.terms.includes(term.id))
+      .map((l) => newTrim(l.url));
+    setAddedLinks(linkUrls);
+    console.log("linkUrls - ", linkUrls);
+  }
+
   useEffect(() => {
     console.log("termPayload - ", termPayload);
     if (termPayload != null) {
       if (termPayload.from == "edit") {
+        setOldLinks(termPayload.openTerm);
         setOldterm({
           term: { ...termPayload.openTerm },
           author: termPayload.openTerm.author ?? "unknown",
@@ -67,7 +90,21 @@ const TermEditModal = ({ setSelectedTerm, terms }) => {
     setOpenTerm({ ...openTerm, definition: text });
   }
 
+  function updateLinksBeforeSave() {
+    forArrayLength(links, (link) => {
+      const newLink = { ...link };
+      let trimmedNames = addedLinks.map((l) => newTrim(l));
+      if (trimmedNames.includes(newTrim(newLink.url))) {
+        if (!newLink.terms.includes(openTerm.id))
+          newLink.terms = [...newLink.terms, openTerm.id];
+      } else newLink.terms = newLink.terms.filter((id) => id != openTerm.id);
+      if (!checkIfListsTheSame(newLink.terms, link.terms))
+        setDocInFirestore("links", newTrim(link.url), newLink);
+    });
+  }
+
   function saveTerm() {
+    updateLinksBeforeSave();
     function closeAfterSave() {
       closeModal();
       console.log("termSaved");
@@ -189,7 +226,7 @@ const TermEditModal = ({ setSelectedTerm, terms }) => {
         }}
       >
         <img src={"/images/icons/icon_link.png"} className="icon25" />
-        <div className="textWhiteSmall">Andere Begriffe verlinken</div>
+        <div className="textWhiteSmall">Begriffe verlinken</div>
       </div>
     ),
 
@@ -268,6 +305,15 @@ const TermEditModal = ({ setSelectedTerm, terms }) => {
     ),
   };
 
+  function onLinkClicked(link) {
+    console.log("link - ", link);
+    function afterAddRemove(list) {
+      console.log("list - ", list);
+      setAddedLinks(list);
+    }
+    addRemoveItem(newTrim(link.url), addedLinks, afterAddRemove);
+  }
+
   function handleDrop(files) {
     const imageEndings = ["png", "jpg", "jpeg"];
     const imageFiles = [];
@@ -285,16 +331,7 @@ const TermEditModal = ({ setSelectedTerm, terms }) => {
   }
 
   function onPickedTermClicked(term) {
-    console.log(
-      "clickedTerm  - ",
-      term,
-      " |openTerm.linked - ",
-      openTerm.linked,
-      " |openTerm.linked.includes(term.id) - ",
-      openTerm.linked.includes(term.id)
-    );
     if (openTerm.linked.includes(term.id)) {
-      console.log("id is included");
       setOpenTerm({
         ...openTerm,
         linked: openTerm.linked.filter((id) => id != term.id),
@@ -376,12 +413,21 @@ const TermEditModal = ({ setSelectedTerm, terms }) => {
             linkToOtherTerms={valueElements.linkToOtherTerms}
             loadingImage={loadingImage}
             onFileChange={onImageFileChange}
+            oldTerm={oldTerm}
+            terms={terms}
+            links={links}
+            displayedLinks={displayedLinks}
+            setDisplayedLinks={setDisplayedLinks}
+            onLinkClicked={onLinkClicked}
           />
         </div>
         <ImagesAndLinksBar
+          addedLinks={addedLinks}
+          setAddedLinks={setAddedLinks}
           openTerm={openTerm}
           setOpenTerm={setOpenTerm}
           terms={terms}
+          links={links}
         />
       </div>
     </DragDropDiv>

@@ -7,7 +7,7 @@ import { catList } from "../../misc/lists";
 import useOnHover from "../../modals/useOnHover";
 import LinkDetailedModal from "./LinkDetailedModal";
 
-const LinksHolder = ({ link, terms }) => {
+const LinksHolder = ({ link, terms, onLinkClicked = null }) => {
   const hover = useOnHover({ item: link, unselectedTextColor: "#ddddff" });
   const [fullCats, setFullCats] = useState([]);
   const modal = useModal({
@@ -34,7 +34,8 @@ const LinksHolder = ({ link, terms }) => {
       <div
         className="textWhite"
         onClick={() => {
-          modal.open(`open${link.url}`);
+          if (onLinkClicked == null) modal.open(`open${link.url}`);
+          else onLinkClicked(link);
         }}
         style={{ flex: 1, textAlign: "center", color: hover.textColor }}
       >
