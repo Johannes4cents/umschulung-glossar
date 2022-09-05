@@ -10,6 +10,7 @@ import TermEditModal from "./modals/TermEditModal";
 import miscStore from "./stores/miscStore";
 import "react-toastify/dist/ReactToastify.css";
 import ClickedImageContainer from "./components/ClickedImageContainer";
+import MainNuetzlicheLinks from "./bereich_begriffs_liste/nuetzlicheLinks/MainNuetzlicheLinks";
 
 function App() {
   const [selectedTerm, setSelectedTerm] = useState(null);
@@ -134,6 +135,14 @@ function App() {
           alignItems: "baseline",
         }}
       >
+        <MainNuetzlicheLinks
+          displayedLinks={displayedLinks}
+          setDisplayedLinks={setDisplayedLinks}
+          links={links}
+          terms={terms}
+          selectedCats={selectedCats}
+        />
+
         <MainTermsSection
           terms={terms}
           displayedTerms={displayedTerms}

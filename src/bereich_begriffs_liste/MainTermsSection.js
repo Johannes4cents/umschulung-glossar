@@ -144,12 +144,6 @@ const MainTermsSection = ({
         selectedFilter={checkmarkTest}
         selectedCats={selectedCats}
       />
-      <MainNuetzlicheLinks
-        displayedLinks={displayedLinks}
-        setDisplayedLinks={setDisplayedLinks}
-        links={links}
-        terms={terms}
-      />
     </div>
   );
 };

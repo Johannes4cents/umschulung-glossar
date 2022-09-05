@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import HoverImage from "../../components/HoverImage";
 import SearchBar from "../../components/SearchBar";
 import useModal from "../../hooks/useModal";
+import LinksHolder from "./LinksHolder";
 import NewLinkModal from "./NewLinkModal";
 
 const MainNuetzlicheLinks = ({
@@ -17,8 +18,9 @@ const MainNuetzlicheLinks = ({
       searchInput.length > 0
         ? links.filter(
             (l) =>
-              l.name.startsWith(searchInput.toLowerCase()) ||
-              l.url.startsWith(searchInput.toLowerCase())
+              l.searchTerms.some((string) =>
+                string.startsWith(searchInput.toLowerCase())
+              ) || l.url.startsWith(searchInput.toLowerCase())
           )
         : links;
     setDisplayedLinks(
@@ -33,8 +35,9 @@ const MainNuetzlicheLinks = ({
       search.length > 0
         ? links.filter(
             (l) =>
-              l.name.startsWith(search.toLowerCase()) ||
-              l.url.startsWith(search.toLowerCase())
+              l.searchTerms.some((string) =>
+                string.startsWith(search.toLowerCase())
+              ) || l.url.startsWith(search.toLowerCase())
           )
         : links;
     setDisplayedLinks(
@@ -72,6 +75,14 @@ const MainNuetzlicheLinks = ({
         />
 
         <img src="/images/drawable/icon_search.png" className="icon25" />
+      </div>
+      <div
+        className="divColumn"
+        style={{ width: "100%", maxHeight: "300px", overflow: "auto" }}
+      >
+        {displayedLinks.map((l) => (
+          <LinksHolder key={l.url} link={l} />
+        ))}
       </div>
       {modal.element}
     </div>
