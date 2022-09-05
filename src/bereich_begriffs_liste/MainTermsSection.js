@@ -5,7 +5,6 @@ import miscStore from "../stores/miscStore";
 import CatsListTerms from "./CatsListTerms";
 import { toast } from "react-toastify";
 import TermList from "./TermList";
-import MainNuetzlicheLinks from "./nuetzlicheLinks/MainNuetzlicheLinks";
 
 const MainTermsSection = ({
   selectedTerm,
@@ -50,22 +49,28 @@ const MainTermsSection = ({
   }
 
   function openTermModal() {
-    if (searchInput.length > 2) {
-      let entry = findExistingEntry(searchInput);
-      console.log("foundEntry - ", entry);
-      if (entry == null) {
-        modal.open("newTerm");
-        setTermPayload({
-          from: "new",
-          openTerm: makeTerm(searchInput, [], info.username),
-        });
-        setSearchInput("");
-      } else
-        toast(
-          `Es gibt Bereits den Eintrag ${entry.term.name} für diesen Begriff`,
-          { position: toast.POSITION.TOP_LEFT, autoClose: 1000 }
-        );
-    }
+    if (loggedIn) {
+      if (searchInput.length > 2) {
+        let entry = findExistingEntry(searchInput);
+        console.log("foundEntry - ", entry);
+        if (entry == null) {
+          modal.open("newTerm");
+          setTermPayload({
+            from: "new",
+            openTerm: makeTerm(searchInput, [], info.username),
+          });
+          setSearchInput("");
+        } else
+          toast(
+            `Es gibt Bereits den Eintrag ${entry.term.name} für diesen Begriff`,
+            { position: toast.POSITION.TOP_LEFT, autoClose: 1000 }
+          );
+      }
+    } else
+      toast(`Bitte Einloggen um neue Einträge zu erstellen`, {
+        position: toast.POSITION.TOP_LEFT,
+        autoClose: 2000,
+      });
   }
 
   const onSearchEnter = (e) => {
