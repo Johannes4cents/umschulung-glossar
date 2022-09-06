@@ -45,7 +45,7 @@ const TermEditBottomBar = ({
           onClick={() => {
             modal.open("openNewLink");
           }}
-          imgUrl={"images/icons/icon_link_new.png"}
+          imgUrl={"/images/icons/icon_link_new.png"}
           description={"Neuen Link hinzufügen"}
         />
         <div className="textWhiteSmall">+ Externen Link</div>
