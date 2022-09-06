@@ -17,6 +17,7 @@ import useModal from "../../hooks/useModal";
 import AddLinkToTermSection from "./AddLinkToTermSection";
 
 const NewLinkModal = ({
+  asModal = true,
   terms,
   oldLink,
   term,
@@ -73,7 +74,7 @@ const NewLinkModal = ({
       console.log("newLink - ", newLink);
       setDocInFirestore("links", newTrim(newLink.url), newLink, () => {
         toast("Neuer Link gespeichert");
-        closeModal();
+        if (asModal) closeModal();
       });
     }
   }

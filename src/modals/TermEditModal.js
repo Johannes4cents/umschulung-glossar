@@ -24,6 +24,7 @@ import TermEditBottomBar from "./TerminEditElements/TermEditBottomBar";
 
 import DraftEditor from "./TerminEditElements/DraftEditor";
 import { EditorState, convertFromRaw } from "draft-js";
+import NewLinkModal from "../bereich_begriffs_liste/nuetzlicheLinks/NewLinkModal";
 
 const TermEditModal = ({
   setSelectedTerm,
@@ -45,6 +46,7 @@ const TermEditModal = ({
   const { termPayload, closeModal, dragCursor, info } = miscStore();
   const [loadingImage, setLoadingImage] = useState(false);
   const [pickLinksOpen, setPickLinksOpen] = useState(false);
+  const [addExternalLinks, setAddExternalLinks] = useState(false);
 
   const [editorState, setEditorState] = useState(() =>
     openTerm.rawContentState != null
@@ -222,6 +224,7 @@ const TermEditModal = ({
         className="divColumn"
         style={{ position: "relative" }}
         onClick={() => {
+          setAddExternalLinks(false);
           setPickLinksOpen(!pickLinksOpen);
         }}
       >
@@ -353,11 +356,23 @@ const TermEditModal = ({
       }}
     >
       <div className="divRow" style={{ height: "100%", alignItems: "end" }}>
-        {pickLinksOpen && (
+        {pickLinksOpen && !addExternalLinks && (
           <PickLinksModal
             onPickedTermClicked={onPickedTermClicked}
             terms={terms}
             inclusionList={openTerm.linked}
+          />
+        )}
+        {addExternalLinks && !pickLinksOpen && (
+          <NewLinkModal
+            asModal={false}
+            term={openTerm}
+            terms={terms}
+            fromEditTerm={true}
+            displayedLinks={displayedLinks}
+            setDisplayedLinks={setDisplayedLinks}
+            links={links}
+            onLinkClicked={onLinkClicked}
           />
         )}
         <div
@@ -405,6 +420,7 @@ const TermEditModal = ({
           />
 
           <TermEditBottomBar
+            setPickLinksOpen={setPickLinksOpen}
             saveTerm={onSaveButtonClicked}
             openTerm={openTerm}
             setOpenTerm={setOpenTerm}
@@ -418,6 +434,8 @@ const TermEditModal = ({
             links={links}
             displayedLinks={displayedLinks}
             setDisplayedLinks={setDisplayedLinks}
+            setAddExternalLinks={setAddExternalLinks}
+            addExternalLinks={addExternalLinks}
             onLinkClicked={onLinkClicked}
           />
         </div>

@@ -6,6 +6,8 @@ import { addRemoveItem } from "../../misc/helperFuncs";
 import miscStore from "../../stores/miscStore";
 import UploadPdf from "./UploadPdf";
 const TermEditBottomBar = ({
+  addExternalLinks,
+  setAddExternalLinks,
   displayedLinks,
   setDisplayedLinks,
   links,
@@ -18,22 +20,8 @@ const TermEditBottomBar = ({
   setOpenTerm,
   terms,
   onLinkClicked,
+  setPickLinksOpen,
 }) => {
-  const { closeModal } = miscStore;
-  const modal = useModal({
-    password: "openNewLink",
-    modalContent: (
-      <NewLinkModal
-        term={openTerm}
-        terms={terms}
-        fromEditTerm={true}
-        displayedLinks={displayedLinks}
-        setDisplayedLinks={setDisplayedLinks}
-        links={links}
-        onLinkClicked={onLinkClicked}
-      />
-    ),
-  });
   return (
     <div
       className="divRow"
@@ -43,13 +31,13 @@ const TermEditBottomBar = ({
       <div className="divColumn">
         <HoverImage
           onClick={() => {
-            modal.open("openNewLink");
+            setPickLinksOpen(false);
+            setAddExternalLinks(!addExternalLinks);
           }}
           imgUrl={"/images/icons/icon_link_new.png"}
           description={"Neuen Link hinzufügen"}
         />
         <div className="textWhiteSmall">+ Externen Link</div>
-        {modal.element}
       </div>
 
       {uploadImageBtn}
