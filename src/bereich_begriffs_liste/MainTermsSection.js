@@ -5,6 +5,7 @@ import miscStore from "../stores/miscStore";
 import CatsListTerms from "./CatsListTerms";
 import { toast } from "react-toastify";
 import TermList from "./TermList";
+import { useNavigate } from "react-router-dom";
 
 const MainTermsSection = ({
   selectedTerm,
@@ -35,6 +36,7 @@ const MainTermsSection = ({
     } else setDisplayedterms(terms);
   };
   const { setTermPayload, loggedIn, info } = miscStore();
+  const navigate = useNavigate();
 
   function findExistingEntry(search) {
     let nameList = [];
@@ -90,8 +92,7 @@ const MainTermsSection = ({
   }
 
   function onTermClicked(term) {
-    if ((selectedTerm ?? { id: "noting" }).id != term.id) setSelectedTerm(term);
-    else setSelectedTerm(null);
+    navigate(`/term/${term.id}`);
   }
 
   return (

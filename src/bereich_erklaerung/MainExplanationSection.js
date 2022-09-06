@@ -121,6 +121,7 @@ const ImagesRow = ({ selectedTerm }) => {
     >
       {selectedTerm.images.map((url) => (
         <ImagePreview
+          key={url}
           image={url}
           size={150}
           onImageClicked={onImageClicked}

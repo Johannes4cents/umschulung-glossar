@@ -12,6 +12,8 @@ import "react-toastify/dist/ReactToastify.css";
 import ClickedImageContainer from "./components/ClickedImageContainer";
 import MainNuetzlicheLinks from "./bereich_begriffs_liste/nuetzlicheLinks/MainNuetzlicheLinks";
 import PageTopBar from "./components/PageTopBar";
+import { useNavigate, useLocation } from "react-router-dom";
+import { getItemById } from "./misc/helperFuncs";
 
 function App() {
   const [selectedTerm, setSelectedTerm] = useState(null);
@@ -22,6 +24,19 @@ function App() {
   const [questions, setQuestions] = useState([]);
   const [displayedLinks, setDisplayedLinks] = useState([]);
   const [links, setLinks] = useState([]);
+
+  const location = useLocation();
+  useEffect(() => {
+    console.log("useEffect for loc and temrs called");
+    if (terms.length > 0) {
+      if (location.pathname.startsWith("/term/")) {
+        const id = location.pathname.slice(6);
+        const urlTerm = getItemById(id, terms);
+        setSelectedTerm(urlTerm);
+        console.log("id - ", id);
+      }
+    }
+  }, [location, terms]);
 
   const { setInfo, loggedIn, info } = miscStore();
 
@@ -136,7 +151,6 @@ function App() {
         />
       </div>
       {modal.element}
-
       <ToastContainer />
     </div>
   );
