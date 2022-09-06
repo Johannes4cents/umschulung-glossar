@@ -27,18 +27,16 @@ function App() {
 
   const location = useLocation();
   useEffect(() => {
-    console.log("useEffect for loc and temrs called");
     if (terms.length > 0) {
       if (location.pathname.startsWith("/term/")) {
         const id = location.pathname.slice(6);
         const urlTerm = getItemById(id, terms);
-        setSelectedTerm(urlTerm);
-        console.log("id - ", id);
+        if (urlTerm) setSelectedTerm(urlTerm);
       }
     }
   }, [location, terms]);
 
-  const { setInfo, loggedIn, info } = miscStore();
+  const { setInfo } = miscStore();
 
   useEffect(() => {
     var unsub = null;

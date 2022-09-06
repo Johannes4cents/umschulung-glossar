@@ -59,11 +59,9 @@ const TermEditModal = ({
       .filter((l) => l.terms.includes(term.id))
       .map((l) => newTrim(l.url));
     setAddedLinks(linkUrls);
-    console.log("linkUrls - ", linkUrls);
   }
 
   useEffect(() => {
-    console.log("termPayload - ", termPayload);
     if (termPayload != null) {
       if (termPayload.from == "edit") {
         setOldLinks(termPayload.openTerm);
@@ -80,7 +78,6 @@ const TermEditModal = ({
   useEffect(() => {
     if (refNameInput.current != null && termPayload != null) {
       refNameInput.current.focus();
-      console.log("refName focus");
     }
   }, [termPayload, refNameInput]);
 
@@ -113,12 +110,10 @@ const TermEditModal = ({
     }
     var newTerm = { ...openTerm };
     if (oldTerm != null) {
-      console.log("oldTerm != null");
       newTerm.editHistory = [...(newTerm.editHistory ?? []), oldTerm];
       newTerm.lastEditor = info.username;
       newTerm.author = newTerm.author ?? "unknown";
     }
-    console.log("newTerm - ", newTerm);
     setDocInFirestore("terms", newTerm.id, newTerm, closeAfterSave);
     setSelectedTerm(openTerm);
   }
@@ -326,7 +321,6 @@ const TermEditModal = ({
       }
     });
 
-    console.log("imageFiles - ", imageFiles);
     if (imageFiles.length > 0)
       forArrayLength(imageFiles, (file) => {
         addImageToTerm(file);

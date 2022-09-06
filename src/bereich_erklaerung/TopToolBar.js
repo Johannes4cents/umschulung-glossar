@@ -1,7 +1,10 @@
 import React from "react";
 import HoverImage from "../components/HoverImage";
 import useModal from "../hooks/useModal";
-import { deleteDocInFirestore } from "../misc/handleFirestore";
+import {
+  deleteDocInFirestore,
+  setDocInFirestore,
+} from "../misc/handleFirestore";
 import ConfirmationModal from "../modals/ConfirmationModal";
 import useOnHover from "../modals/useOnHover";
 import AskQuestionModal from "../QuestionAndAnswers/AskQuestionModal";
@@ -37,8 +40,10 @@ const TopToolBar = ({ selectedTerm, setSelectedTerm, modal }) => {
 
   function confirmDeletion(confirmation) {
     if (confirmation) {
-      deleteDocInFirestore("terms", selectedTerm.id, () => {
-        setSelectedTerm(null);
+      setDocInFirestore("termsArchive", selectedTerm.id, selectedTerm, () => {
+        deleteDocInFirestore("terms", selectedTerm.id, () => {
+          setSelectedTerm(null);
+        });
       });
     }
   }
