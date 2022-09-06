@@ -69,7 +69,7 @@ const ExpandedQuestionHolder = ({
             }}
             description={"beantworten"}
             standardGray={true}
-            imgUrl={"Images/icons/icon_answer.png"}
+            imgUrl={"/images/icons/icon_answer.png"}
             maxWidth={25}
             maxHeight={40}
           />
