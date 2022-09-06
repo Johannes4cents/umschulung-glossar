@@ -30,7 +30,7 @@ const LinksHolder = ({ link, terms, onLinkClicked = null }) => {
         borderBottom: "1px dotted grey",
       }}
     >
-      <img src="Images/icons/icon_web_link.png" className="icon20" />
+      <img src="/images/icons/icon_web_link.png" className="icon20" />
       <div
         className="textWhite"
         onClick={() => {

@@ -71,7 +71,7 @@ const MainNuetzlicheLinks = ({
         onClick={() => {
           openNewLinkModal();
         }}
-        imgUrl={"images/icons/icon_link_new.png"}
+        imgUrl={"/images/icons/icon_link_new.png"}
         standardGray={true}
         description={"Neuen Link hinzufügen"}
       />
