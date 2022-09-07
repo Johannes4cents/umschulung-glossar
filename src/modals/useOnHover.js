@@ -117,6 +117,7 @@ const useOnHover = ({
       onMouseLeave: (e) => onMouseLeave(e),
     },
     textColor,
+
     setShowHover,
     activeImage,
     bgColor,

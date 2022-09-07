@@ -5,13 +5,15 @@ import {
   deleteDocInFirestore,
   setDocInFirestore,
 } from "../misc/handleFirestore";
+import { addRemoveItem } from "../misc/helperFuncs";
 import ConfirmationModal from "../modals/ConfirmationModal";
 import useOnHover from "../modals/useOnHover";
 import AskQuestionModal from "../QuestionAndAnswers/AskQuestionModal";
 import miscStore from "../stores/miscStore";
+import { toast } from "react-toastify";
 
 const TopToolBar = ({ selectedTerm, setSelectedTerm, modal }) => {
-  const { setTermPayload, loggedIn } = miscStore();
+  const { setTermPayload, loggedIn, info } = miscStore();
   const confModal = useModal({
     password: "deleteEntry",
     modalContent: (
@@ -51,6 +53,20 @@ const TopToolBar = ({ selectedTerm, setSelectedTerm, modal }) => {
   function askQuestion() {
     questionModal.open("askQuestion");
   }
+
+  function upvoteTerm() {
+    let upvoteList = selectedTerm.upvotes ?? [];
+    function onAddRemvoed(list) {
+      selectedTerm.upvotes = list;
+      setDocInFirestore("terms", selectedTerm.id, selectedTerm, () => {
+        if (list.includes(info.uid))
+          toast("Begriffserklärung upvoted", { autoClose: 400 });
+        else toast("Upvote zurückgenommen", { autoClose: 400 });
+      });
+    }
+    addRemoveItem(info.uid, upvoteList, onAddRemvoed);
+  }
+
   return (
     <div
       className="divRow"
@@ -81,6 +97,13 @@ const TopToolBar = ({ selectedTerm, setSelectedTerm, modal }) => {
             imgUrl={"/images/icons/icon_question.png"}
             onClick={askQuestion}
             description={"Frage Stellen"}
+          />
+
+          <HoverImage
+            imgUrl={"/images/icons/icon_thumbs_up.png"}
+            onClick={upvoteTerm}
+            description={"Erklärung upvoten"}
+            standardGray={!(selectedTerm.upvotes ?? []).includes(info.uid)}
           />
         </div>
       )}

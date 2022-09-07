@@ -43,7 +43,7 @@ const TermEditModal = ({
   const refFileInput = useRef(null);
   const refAliaseInput = useRef(null);
   const [from, setFrom] = useState("new");
-  const { termPayload, closeModal, dragCursor, info } = miscStore();
+  const { termPayload, closeModal, dragCursor, info, setInfo } = miscStore();
   const [loadingImage, setLoadingImage] = useState(false);
   const [pickLinksOpen, setPickLinksOpen] = useState(false);
   const [addExternalLinks, setAddExternalLinks] = useState(false);
@@ -105,8 +105,13 @@ const TermEditModal = ({
   function saveTerm() {
     updateLinksBeforeSave();
     function closeAfterSave() {
+      if (oldTerm == null) {
+        setInfo({
+          ...info,
+          createdEntries: [...info.createdEntries, openTerm.id],
+        });
+      }
       closeModal();
-      console.log("termSaved");
     }
     var newTerm = { ...openTerm };
     if (oldTerm != null) {

@@ -14,6 +14,7 @@ function makeTerm(name, cats, author) {
     rawContentState: null,
     content: null,
     questions: [],
+    upvotes: [],
   };
 }
 
