@@ -15,8 +15,8 @@ const ProfileButton = () => {
   });
   const hover = useOnHover({
     item: "",
-    normalBgColor: "#7f7f7f",
-    hoverBgColor: "#2f2f2f",
+    normalBgColor: "#588258",
+    hoverBgColor: "#367030",
   });
   const { info } = miscStore();
 

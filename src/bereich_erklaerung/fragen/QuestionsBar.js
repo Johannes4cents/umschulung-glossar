@@ -19,7 +19,7 @@ const QuestionsBar = ({ selectedTerm, setSelectedTerm, questions }) => {
           width: "100%",
           justifyContent: "center",
           marginTop: "5px",
-          backgroundColor: "#6f6f6f",
+          backgroundColor: "#405e40",
           padding: "4px",
           borderRadius: "1rem/1rem",
         }}

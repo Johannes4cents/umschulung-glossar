@@ -48,7 +48,7 @@ const MainExplanationSection = ({
               padding: "5px",
               fontStyle: "italic",
               border: "1px solid gray",
-              backgroundColor: "#5f5f5f",
+              backgroundColor: "#496349",
               width: "100%",
               color: "lightgray",
               fontSize: "18px",

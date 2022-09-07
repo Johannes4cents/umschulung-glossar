@@ -15,7 +15,7 @@ const ExternalLinksSection = ({ selectedTerm, links, terms }) => {
       style={{
         width: "100%",
         marginTop: "10px",
-        backgroundColor: "#8f8f8f",
+        backgroundColor: "#588258",
         borderRadius: "0.5rem/0.5rem",
       }}
     >
