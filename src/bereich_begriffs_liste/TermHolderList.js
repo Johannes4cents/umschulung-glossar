@@ -23,7 +23,7 @@ const TermHolderList = ({
       className="divRow"
       style={{
         width: "95%",
-        backgroundColor: index % 2 == 0 ? "#4f4f4f" : "#5f5f5f",
+        backgroundColor: index % 2 == 0 ? "#2f402f" : "#496349",
         padding: "2px",
       }}
       onClick={() => {
